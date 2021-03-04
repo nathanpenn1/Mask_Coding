@@ -1,11 +1,11 @@
 const byte ledPin = 13;
-const byte interruptPin = 2;
+const byte interruptPinX = 2;
 volatile byte state = HIGH;
 
 void setup() {
   pinMode(ledPin, OUTPUT);
-  pinMode(interruptPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(interruptPin), blink, CHANGE);
+  pinMode(interruptPinX, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(interruptPinX), blink, CHANGE);
 }
 
 void loop() {
@@ -13,10 +13,5 @@ void loop() {
 }
 
 void blink() {
-//  if(digitalPinToInterrupt(interruptPin) == HIGH)
-//  {
-//    state = !state;
-//  }
   state = !state;
-//  buttonPress();
 }
