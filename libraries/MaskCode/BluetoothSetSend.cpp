@@ -77,8 +77,9 @@ void percentageStatus(int inc){
   boolean percentageChanged = (percentageCharacteristic.value() != inc); // is the percentage in the loop
 
   if(percentageChanged){
+    percentageOutput(percentageCharacteristic.value(), 0, 0, 0);
     percentageCharacteristic.writeValue(inc);
-    percentageOutput(inc);
+    percentageOutput(inc, 255, 0, 0);
     Serial.print("% changed to : ");
     Serial.print(inc);
     Serial.print("%");
