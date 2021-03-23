@@ -68,10 +68,10 @@ void drawingF(int Cx, int Cy, int R, int G, int B, int textSize)
   tft.setTextSize(textSize);
 }
 
-void percentageOutput(int i){
-    tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
+void percentageOutput(int i, int R, int G, int B){
+    //tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
     tft.setCursor(270,15); // set the cursor
-    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextColor(tft.color565(R, G, B));
     tft.setTextSize(2);
     tft.print(i);
     tft.print("%");

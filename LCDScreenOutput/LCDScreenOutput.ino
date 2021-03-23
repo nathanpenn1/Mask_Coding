@@ -18,7 +18,7 @@ void loop() {
   bluetoothStatus();
   percentageStatus(inc);
   intesityStatus(dataPoint);
-  uvSensorStatus();
+  uvSensorStatus(dataPoint);
   // incrementing percentage  
   if(inc < 100)
     inc = inc + 1;
