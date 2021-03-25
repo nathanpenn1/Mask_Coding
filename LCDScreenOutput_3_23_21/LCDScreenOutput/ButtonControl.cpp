@@ -1,9 +1,8 @@
 #include "ButtonControl.h"
 #include <EasyButton.h>
 
-#define batteryPercentPin A7
 #define oneButtonPIN D2 // 3/16/21
-#define LEDtoTestOneButtonFunc D3 // 3/16/21
+#define turnOffSystemPin D3 // 3/24/21 
 
 bool buttonPressed = 0;
 bool buttonPressedFourSeconds = 0;
@@ -14,13 +13,16 @@ EasyButton oneButton(oneButtonPIN);
 
 void buttonSetup()
 {
-  oneButton.begin(); // Initialize the button
+  // Setting up turnOffSystemPin to turn on. With Brandon's circuit it should latch
+  // the system to stay on. To turn off the system, set turnOffSystemPin to off
+  pinMode(turnOffSystemPin, OUTPUT);
+  digitalWrite(turnOffSystemPin, HIGH);
 
-  oneButton.onPressed(oneTap);
+  oneButton.begin(); // Initialize the button
+  oneButton.onPressed(oneTap); // Set up the button for a single tap/press
   oneButton.onPressedFor(timePressed_foursec, fourSecFunc); // Set up the button for a 4 second long press
 
-
-  if (oneButton.supportsInterrupt())
+  if (oneButton.supportsInterrupt()) // Setting up interrupts using the EasyButton library
   {
     oneButton.enableInterrupt(oneButtonISR);
     Serial.println("Settings interrupts with the oneButton");
@@ -36,8 +38,6 @@ void oneButtonISR()
 {
   oneButton.read();// Updating button status
 }
-
-// Note to Self -- long press for 4 seconds is good, but cant work with a single tap. 
 
 
 void oneTap()
@@ -59,7 +59,8 @@ void checkButton()
   }
   else if (buttonPressedFourSeconds)
   {
-    Serial.println("Button held for four seconds");
+    Serial.println("Button held for four seconds. Turning off the system.");
     buttonPressedFourSeconds = 0;
+    digitalWrite(turnOffSystemPin, LOW); // Turn off the system. 
   }
 }

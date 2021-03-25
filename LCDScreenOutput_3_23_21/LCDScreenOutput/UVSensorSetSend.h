@@ -9,8 +9,5 @@ void uvSensorSetup();
 
 void uvSensorStatus();
 
-void blink();
-
-
 
 #endif
