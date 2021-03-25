@@ -4,20 +4,6 @@
 #define UVOUT A0
 #define REF_3V3 A1
 
-////#define changeScreen D2 // 3/16/21
-////#define LEDtoTestOneButtonFunc D3 // 3/16/21
-////volatile byte state = LOW; // 3/16/21
-
-/*
-// 3/16/21
-void blink(){
-  state = !state;
-  digitalWrite(LEDtoTestOneButtonFunc, state);
-
-}
-*/
-
-
 int averageAnalogRead(int pinToRead){
 	byte numberOfReadings = 8;
 	unsigned int runningValue = 0;
@@ -74,19 +60,6 @@ void uvSensorSetup(){
 	//Serial.begin(9600);
 	pinMode(UVOUT, INPUT);
 	pinMode(REF_3V3, INPUT);
-
-  /*
-  //// pinMode(LEDtoTestOneButtonFunc, OUTPUT);
-  //// pinMode(changeScreen, INPUT_PULLUP);
-
-
-  // Setting up D2 for interrupts
-  attachInterrupt(digitalPinToInterrupt(changeScreen), blink, CHANGE); //3/16/21
-
-  //Set LED to off first.
-  digitalWrite(LEDtoTestOneButtonFunc, state);
-
-  */
 }
 
 void uvSensorStatus(){

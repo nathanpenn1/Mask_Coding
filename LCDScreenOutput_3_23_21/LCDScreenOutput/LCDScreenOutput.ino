@@ -17,7 +17,6 @@ void setup() {
   bluetoothSetup();
   uvSensorSetup();
   buttonSetup();
-  //pinMode(oneButtonPIN, INPUT_PULLUP);
 }
 
 void loop() {
