@@ -1,7 +1,6 @@
 #include "ButtonControl.h"
 #include <EasyButton.h>
 
-#define batteryPercentPin A7
 #define oneButtonPIN D2 // 3/16/21
 #define turnOffSystemPin D3 // 3/24/21 
 
