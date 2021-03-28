@@ -3,6 +3,7 @@
 #include "ScreenDraw.h"
 #include "BluetoothSetSend.h"
 #include "UVSensorSetSend.h"
+#include "EasyButton.h"
 
 int inc = 0;
 int dataPoint = 0;
@@ -15,10 +16,17 @@ void setup() {
 }
 
 void loop() {
+  checkFrameTime();
   bluetoothStatus();
   percentageStatus(inc);
-  intesityStatus(dataPoint);
-  uvSensorStatus(dataPoint);
+  intesityStatus(uvSensorStatus(dataPoint));
+  //uvSensorStatus(dataPoint);
+  // Raven 3/6/21
+  printUV();
+  //graphUV();
+  updateArray(inc);
+  drawLineGraph();
+  
   // incrementing percentage  
   if(inc < 100)
     inc = inc + 1;

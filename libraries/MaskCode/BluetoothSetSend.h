@@ -3,7 +3,7 @@
 
 void percentageStatus(int inc);
 
-void intesityStatus(int dataPoint);
+void intesityStatus(double dataPoint);
 
 void bluetoothStatus();
 
