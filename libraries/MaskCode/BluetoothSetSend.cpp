@@ -54,7 +54,7 @@ void bluetoothStatus(){
   }
 }
 
-void intesityStatus(int dataPoint){
+void intesityStatus(double dataPoint){
   // read the current percentage value
   // int percentage = digitalRead(pin #);
 

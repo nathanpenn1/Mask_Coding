@@ -7,7 +7,7 @@
 
 void uvSensorSetup();
 
-void uvSensorStatus(int data);
+int uvSensorStatus(int data);
 
 double AverageFilter (double input);
 

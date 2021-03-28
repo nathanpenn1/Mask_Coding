@@ -42,7 +42,7 @@ double AverageFilter (double input) {
 	return ((sum / N));
 }
 
-void uvSensorStatus(int data){
+int uvSensorStatus(int data){
 	//double uvLevel = analogRead(UVOUT);
 	
 
@@ -66,5 +66,5 @@ void uvSensorStatus(int data){
 	*/
 	Serial.println("UV Intensity (mW/cm^2): ");
 	Serial.print(uvAverage);
-	
+	return (int)uvAverage;
 }
