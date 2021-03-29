@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,8 @@
 		AA206AB525D763CE008C7130 /* MaskAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206AB425D763CE008C7130 /* MaskAppTests.swift */; };
 		AA206AC025D763CE008C7130 /* MaskAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206ABF25D763CE008C7130 /* MaskAppUITests.swift */; };
 		AA206AD125D76501008C7130 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206AD025D76501008C7130 /* BLEManager.swift */; };
+		AAE6AC8725E09A5E007984B2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = AAE6AC8625E09A5E007984B2 /* SwiftUICharts */; };
+		AAE6ACCE25E5C417007984B2 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = AAE6ACCD25E5C417007984B2 /* Charts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,19 @@
 			remoteInfo = MaskApp;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AAE6ACC725E5C1B8007984B2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA206A9725D763CA008C7130 /* MaskApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaskApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAE6AC8725E09A5E007984B2 /* SwiftUICharts in Frameworks */,
+				AAE6ACCE25E5C417007984B2 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +104,7 @@
 				AA206AB325D763CE008C7130 /* MaskAppTests */,
 				AA206ABE25D763CE008C7130 /* MaskAppUITests */,
 				AA206A9825D763CA008C7130 /* Products */,
+				AAE6ACB625E5C0B6007984B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +160,13 @@
 			path = MaskAppUITests;
 			sourceTree = "<group>";
 		};
+		AAE6ACB625E5C0B6007984B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,12 +177,17 @@
 				AA206A9325D763CA008C7130 /* Sources */,
 				AA206A9425D763CA008C7130 /* Frameworks */,
 				AA206A9525D763CA008C7130 /* Resources */,
+				AAE6ACC725E5C1B8007984B2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MaskApp;
+			packageProductDependencies = (
+				AAE6AC8625E09A5E007984B2 /* SwiftUICharts */,
+				AAE6ACCD25E5C417007984B2 /* Charts */,
+			);
 			productName = MaskApp;
 			productReference = AA206A9725D763CA008C7130 /* MaskApp.app */;
 			productType = "com.apple.product-type.application";
@@ -229,6 +259,10 @@
 				Base,
 			);
 			mainGroup = AA206A8E25D763CA008C7130;
+			packageReferences = (
+				AAE6AC8525E09A5E007984B2 /* XCRemoteSwiftPackageReference "ChartView" */,
+				AAE6ACCC25E5C417007984B2 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
+			);
 			productRefGroup = AA206A9825D763CA008C7130 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -605,6 +639,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AAE6AC8525E09A5E007984B2 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.4;
+			};
+		};
+		AAE6ACCC25E5C417007984B2 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AAE6AC8625E09A5E007984B2 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAE6AC8525E09A5E007984B2 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+		AAE6ACCD25E5C417007984B2 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAE6ACCC25E5C417007984B2 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
+			productName = Charts;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AA206AA025D763CB008C7130 /* MaskApp.xcdatamodeld */ = {
