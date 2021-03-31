@@ -39,7 +39,7 @@ void loop() {
   graphUV();
 
   // incrementing percentage
-  if (inc < 100)
+  if (inc < 4)
     inc = inc + 1;
   else
     inc = 0;
