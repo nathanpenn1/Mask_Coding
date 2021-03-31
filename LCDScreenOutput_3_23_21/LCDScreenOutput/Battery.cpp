@@ -1,6 +1,6 @@
 #include "Battery.h"
 
-#define MAX_VOLTAGE 4
+#define MAX_VOLTAGE 1023
 
 int calculateBatteryPercentage(int batteryPin)
 {
