@@ -43,6 +43,8 @@ void loop() {
   else
     inc = 0;
 
+  percentageOutput(inc);
+
   if (dataPoint < 50)
     dataPoint = dataPoint + 1;
   else
