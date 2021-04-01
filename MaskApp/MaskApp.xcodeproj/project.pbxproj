@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA206A9B25D763CB008C7130 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206A9A25D763CB008C7130 /* AppDelegate.swift */; };
 		AA206A9D25D763CB008C7130 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206A9C25D763CB008C7130 /* SceneDelegate.swift */; };
-		AA206A9F25D763CB008C7130 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206A9E25D763CB008C7130 /* ContentView.swift */; };
 		AA206AA225D763CB008C7130 /* MaskApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA206AA025D763CB008C7130 /* MaskApp.xcdatamodeld */; };
 		AA206AA425D763CD008C7130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA206AA325D763CD008C7130 /* Assets.xcassets */; };
 		AA206AA725D763CD008C7130 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA206AA625D763CD008C7130 /* Preview Assets.xcassets */; };
@@ -17,6 +16,10 @@
 		AA206AB525D763CE008C7130 /* MaskAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206AB425D763CE008C7130 /* MaskAppTests.swift */; };
 		AA206AC025D763CE008C7130 /* MaskAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206ABF25D763CE008C7130 /* MaskAppUITests.swift */; };
 		AA206AD125D76501008C7130 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206AD025D76501008C7130 /* BLEManager.swift */; };
+		AA8299AE2613BDFD00AD36EA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299AD2613BDFD00AD36EA /* MainView.swift */; };
+		AA8299B22613BF3800AD36EA /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299B12613BF3800AD36EA /* BatteryView.swift */; };
+		AA8299B62613BF9F00AD36EA /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299B52613BF9F00AD36EA /* GraphView.swift */; };
+		AA8299BC2613DAB100AD36EA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299BB2613DAB100AD36EA /* HomeView.swift */; };
 		AAE6AC8725E09A5E007984B2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = AAE6AC8625E09A5E007984B2 /* SwiftUICharts */; };
 		AAE6ACCE25E5C417007984B2 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = AAE6ACCD25E5C417007984B2 /* Charts */; };
 /* End PBXBuildFile section */
@@ -55,7 +58,6 @@
 		AA206A9725D763CA008C7130 /* MaskApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaskApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA206A9A25D763CB008C7130 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA206A9C25D763CB008C7130 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AA206A9E25D763CB008C7130 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AA206AA125D763CB008C7130 /* MaskApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MaskApp.xcdatamodel; sourceTree = "<group>"; };
 		AA206AA325D763CD008C7130 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA206AA625D763CD008C7130 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -68,6 +70,10 @@
 		AA206ABF25D763CE008C7130 /* MaskAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskAppUITests.swift; sourceTree = "<group>"; };
 		AA206AC125D763CE008C7130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA206AD025D76501008C7130 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
+		AA8299AD2613BDFD00AD36EA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AA8299B12613BF3800AD36EA /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
+		AA8299B52613BF9F00AD36EA /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		AA8299BB2613DAB100AD36EA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +129,10 @@
 			children = (
 				AA206A9A25D763CB008C7130 /* AppDelegate.swift */,
 				AA206A9C25D763CB008C7130 /* SceneDelegate.swift */,
-				AA206A9E25D763CB008C7130 /* ContentView.swift */,
+				AA8299B52613BF9F00AD36EA /* GraphView.swift */,
+				AA8299B12613BF3800AD36EA /* BatteryView.swift */,
+				AA8299AD2613BDFD00AD36EA /* MainView.swift */,
+				AA8299BB2613DAB100AD36EA /* HomeView.swift */,
 				AA206AD025D76501008C7130 /* BLEManager.swift */,
 				AA206AA325D763CD008C7130 /* Assets.xcassets */,
 				AA206AA825D763CD008C7130 /* LaunchScreen.storyboard */,
@@ -306,11 +315,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA8299B22613BF3800AD36EA /* BatteryView.swift in Sources */,
 				AA206A9B25D763CB008C7130 /* AppDelegate.swift in Sources */,
+				AA8299AE2613BDFD00AD36EA /* MainView.swift in Sources */,
 				AA206AA225D763CB008C7130 /* MaskApp.xcdatamodeld in Sources */,
 				AA206AD125D76501008C7130 /* BLEManager.swift in Sources */,
+				AA8299BC2613DAB100AD36EA /* HomeView.swift in Sources */,
 				AA206A9D25D763CB008C7130 /* SceneDelegate.swift in Sources */,
-				AA206A9F25D763CB008C7130 /* ContentView.swift in Sources */,
+				AA8299B62613BF9F00AD36EA /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
