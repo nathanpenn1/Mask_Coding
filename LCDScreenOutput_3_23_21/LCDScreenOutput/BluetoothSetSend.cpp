@@ -12,7 +12,7 @@ BLEIntCharacteristic timeChracteristic("2A59", BLERead | BLENotify);
 
 void bluetoothSetup(){
   Serial.begin(9600); // initialize serial communication
-  while(!Serial);
+  //while(!Serial);
 
   //pinMode(LED_BUILTIN, OUTPUT); //initialize the built-in LED pin
   
