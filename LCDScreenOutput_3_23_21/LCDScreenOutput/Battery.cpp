@@ -1,6 +1,6 @@
 #include "Battery.h"
 
-#define MAX_VOLTAGE 1023
+#define MAX_VOLTAGE 4
 
 int calculateBatteryPercentage(int batteryPin)
 {
@@ -8,5 +8,5 @@ int calculateBatteryPercentage(int batteryPin)
   double volt = (MAX_VOLTAGE - (double)batteryPin)/MAX_VOLTAGE; 
   volt *= 100;
     
-  return (int)volt;
+  return 100-(int)volt;
 }

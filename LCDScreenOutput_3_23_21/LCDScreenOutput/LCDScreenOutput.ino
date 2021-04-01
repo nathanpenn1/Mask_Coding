@@ -10,7 +10,7 @@ int inc = 0;
 int dataPoint = 0;
 int timeVal = 0;
 int batteryPercentage = 0;
-int batteryPinVoltage = analogRead(A7); // Read the voltage that the battery pack is sending.
+
 
 void setup() {
   screenSetup();
@@ -21,11 +21,12 @@ void setup() {
 }
 
 void loop() {
-
+  int batteryPinVoltage = analogRead(A7); // Read the voltage that the battery pack is sending.
   checkFrameTime();
   updateButton();
-//  batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
-  batteryPercentage = calculateBatteryPercentage(inc);
+  batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
+  Serial.println(batteryPinVoltage);
+//  batteryPercentage = calculateBatteryPercentage(inc);
 
   bluetoothStatus();
 //  percentageStatus(inc);
