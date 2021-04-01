@@ -104,7 +104,7 @@ struct BatteryView: View {
 struct BatteryView_Previews: PreviewProvider {
     static var previews: some View {
         BatteryView(bleManager: BLEManager())
-            .preferredColorScheme(.light)
+            .preferredColorScheme(.dark)
             
             
             
