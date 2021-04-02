@@ -83,7 +83,6 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         switch characteristic.uuid {
           case percentageCBUUID:
-            //print(characteristic.value ?? "no value")
             print(characteristic.value![0])
             percentageVal = Int(characteristic.value![0])
             //print(percent)
@@ -91,10 +90,13 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
             print(characteristic.value![0])
             xVal = Int(characteristic.value![0])
           case yvalueCBUUID:
-            print(characteristic.value![0])
+            let mostSigByte: UInt8 = characteristic.value![1]
+            let leastSigByte: UInt8 = characteristic.value![0]
+            let value = (UInt16(mostSigByte) << 8 | UInt16(leastSigByte))
+            print(value)
             print("\(inc): The inc value")
             if inc < 100 { // 100
-                yVal.append(Double(characteristic.value![0]))
+                yVal.append(Double(value))
                 inc = inc + 1
             }
             else {
@@ -103,67 +105,11 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
                     yVal[i] = yVal[i + 1]
                 }
                 yVal.remove(at: inc-1)
-                yVal.append(Double(characteristic.value![0]))
+                yVal.append(Double(value))
             }
             
           default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
     }
-    /*
-    private func percentage(from characteristic: CBCharacteristic) -> Int {
-        guard let characteristicData = characteristic.value else { return -1 }
-        let byteArray = [UInt8](characteristicData)
-        let firstBitValue = byteArray[0] & 0x01
-        if firstBitValue == 0{
-            return Int(byteArray[1])
-        }
-        else {
-            return(Int(byteArray[1]) << 8) + Int(byteArray[2])
-        }
-    }
-    
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if let pname = peripheral.name{
-            print(pname)
-            if pname == "Arduino"{
-                print("connected to Nano33BLE")
-                self.myCentral.stopScan()
-                self.myPeripheral = peripheral
-                self.myPeripheral.delegate = self
-                self.myCentral.connect(peripheral, options: nil)
-                //let value = self.myPeripheral.readValue(for: CBCharacteristic)
-            }
-        }
-        var peripheralName: String!
-        
-        if let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
-            peripheralName = name
-        }
-        else {
-            peripheralName = "Unknown"
-        }
-        let newPeripheral = Peripheral(id: peripherals.count, name: peripheralName, rssi: RSSI.intValue)
-        print(newPeripheral)
-        peripherals.append(newPeripheral)
-    }
-    */
-    /*
-    func startScanning(){
-        print("startScanning")
-        myCentral.scanForPeripherals(withServices: [nanoServiceCBUUID])
-    }
-    */
-    /*
-    func stopScanning(){
-        nanoPeripheral = peripheral
-        print("stopScanning")
-        myCentral.stopScan()
-    }
-    
-    func connectBLE(){
-        print("connecting to Nano33BLE")
-        //myCentral.connect(<#T##peripheral: CBPeripheral##CBPeripheral#>, options: <#T##[String : Any]?#>)()
-    }
-    */
 }
