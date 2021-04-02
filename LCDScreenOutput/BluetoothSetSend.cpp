@@ -12,7 +12,7 @@ BLEIntCharacteristic timeChracteristic("2A59", BLERead | BLENotify);
 
 void bluetoothSetup(){
   Serial.begin(9600); // initialize serial communication
-  //while(!Serial); // This line of code prevents the arduino from starting, so I'm disabling it for now.
+  while(!Serial);
 
   //pinMode(LED_BUILTIN, OUTPUT); //initialize the built-in LED pin
   
@@ -33,9 +33,9 @@ void bluetoothSetup(){
   timeChracteristic.writeValue(0);
   
   BLE.advertise();  // Start advertising
-  //Serial.print("Peripheral device MAC: ");////
-  //Serial.println(BLE.address());////
-  //Serial.println("Waiting for connections...");////
+  Serial.print("Peripheral device MAC: ");
+  Serial.println(BLE.address());
+  Serial.println("Waiting for connections...");
 }
 
 void bluetoothStatus(){
@@ -43,29 +43,29 @@ void bluetoothStatus(){
 
   // if a central is connected to the peripheral:
   if (central) {
-    //Serial.print("Connected to central MAC: ");////
+    Serial.print("Connected to central MAC: ");
     // print the central's BT address:
-    //Serial.println(central.address());////
+    Serial.println(central.address());
   }
   else {  
     // when the central disconnects
-   //Serial.print("Disconnected from central MAC: ");////
-   //Serial.println(central.address());////
+    Serial.print("Disconnected from central MAC: ");
+    Serial.println(central.address());
   }
 }
 
 void intesityStatus(int dataPoint){
   // read the current percentage value
-  int percentage = analogRead(A0);
+  // int percentage = digitalRead(pin #);
 
   // has the value changed since the last read
-  boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
+  boolean intestyChanged = (intesityCharacteristic.value() != dataPoint); // is the percentage in the loop
 
   if(intestyChanged){
-    intesityCharacteristic.writeValue(percentage);
-    //Serial.print("intesity changed to : ");////
-    //Serial.print(dataPoint);////
-    //Serial.println("");////
+    intesityCharacteristic.writeValue(dataPoint);
+    Serial.print("intesity changed to : ");
+    Serial.print(dataPoint);
+    Serial.println("");
   }
 }
 
@@ -77,13 +77,14 @@ void percentageStatus(int inc){
   boolean percentageChanged = (percentageCharacteristic.value() != inc); // is the percentage in the loop
 
   if(percentageChanged){
+    percentageOutput(percentageCharacteristic.value(), 0, 0, 0);
     percentageCharacteristic.writeValue(inc);
-    percentageOutput(inc);////
-    //Serial.print("% changed to : "); ////
-    //Serial.print(inc);////
-    //Serial.print("%");////
-    //Serial.println("");////
-    //Serial.println(percentageCharacteristic.value()); ////
+    percentageOutput(inc, 255, 0, 0);
+    Serial.print("% changed to : ");
+    Serial.print(inc);
+    Serial.print("%");
+    Serial.println("");
+    Serial.println(percentageCharacteristic.value());
   }
 }
 
