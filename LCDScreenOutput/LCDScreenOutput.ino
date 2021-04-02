@@ -6,7 +6,7 @@
 #include "EasyButton.h"
 
 int inc = 0;
-int dataPoint = 0;
+int dataPoint = 100;
 int timeVal = 0;
 
 void setup() {
@@ -33,10 +33,10 @@ void loop() {
   else
     inc = 0;
 
-  if(dataPoint < 50)
-    dataPoint = dataPoint + 1;
+  if(dataPoint < 800)
+    dataPoint = dataPoint + 10;
   else
-    dataPoint = 0;  
+    dataPoint = 100;  
     
   delay(100);
 }
