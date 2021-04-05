@@ -13,10 +13,10 @@ int batteryPercentage = 0;
 
 
 void setup() {
+  buttonSetup();
   screenSetup();
   bluetoothSetup();
   uvSensorSetup();
-  buttonSetup();
 }
 
 void loop() {
