@@ -17,4 +17,6 @@ void read_y2(); // Raven 3/12/21
 
 void checkFrameTime(); // Raven 3/22/2021
 
+void printSecondScreen();
+
 #endif

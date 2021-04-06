@@ -132,6 +132,10 @@ void printWarning()
   delay(5000);
 }
 
+
+
+
+
 void percentageOutput(int i){
     tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
     tft.setCursor(270,15); // set the cursor
@@ -264,6 +268,55 @@ void graphUV(){
   
 }
 
+
+// Second screen functions
+
+
+void printSecondScreen()
+{
+  // Turn on backlight
+  pinMode(TFT_LED, OUTPUT);
+  digitalWrite(TFT_LED, HIGH);
+  
+  tft.setRotation(3);
+  tft.fillScreen(tft.color565(0, 0, 0));
+  
+  // draw the title
+  drawingF(5, 15, 80, 149, 201, 2);
+  tft.println("BetterBreath: 2nd Screen");
+  
+  // drawing label "Percentage"
+  drawingF(5, 50, 100, 100, 100, 2);
+  tft.println("Percentage: ");
+  
+  // drawing label "UV Analog"
+  drawingF(5, 65, 100, 100, 100, 2);
+  tft.println("UV Analog: ");
+}
+
+
+void printUV_SECONDSCREEN(){
+    //Printing out the sensor on the arduino for testing. 
+    tft.fillRoundRect(135,65, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(135,65); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+
+    // Print out the current sensor value into the screen. 
+    sensorValue = analogRead(A0);
+    tft.print(sensorValue);
+}
+
+void printPercentage_SECONDSCREEN(int i){
+    tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
+    tft.setCursor(270,15); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+    tft.print(i);
+    tft.print("%");
+}
+
+
 // This function is used to check how many milliseconds it takes for each frame.
 /*
 3/22/21 Average framerate was around 360 milliseconds, resulting in a frame rate/ refresh rate of 
@@ -299,6 +352,37 @@ void checkFrameTime(){
   lastFrameTime = millis();
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

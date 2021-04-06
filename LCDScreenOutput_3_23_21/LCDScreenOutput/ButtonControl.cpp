@@ -2,37 +2,43 @@
 #include <EasyButton.h>
 
 #define oneButtonPIN D2 // 3/16/21
-#define turnOffSystemPin D3 // 3/24/21 
+#define turnOffSystemPin D4 // 3/24/21 
 
 bool buttonPressed = 0;
-bool buttonPressedFourSeconds = 0;
+bool buttonLongPressed = 0;
 
-int timePressed_foursec = 4000; // 4 seconds, or 4000 milliseconds
-//attachInterrupt(digitalPinToInterrupt(oneButtonPin), oneButtonISR, FALLING);
-EasyButton oneButton(oneButtonPIN);
+int timePressed_milliseconds = 2551; // 2.5 seconds, or 2551 milliseconds because why not. 
+
+unsigned int debounce = 40;
+bool pullup = true;
+bool invert = true;
+EasyButton oneButton(oneButtonPIN, debounce, pullup,  invert);
+//EasyButton oneButton(oneButtonPIN); // Uncomment this if you want to use button without interrupts
+
+// Variables to use without interrupts. Comment them out if not in use to save space for Arduino
+// int lastTime = millis();
+// int counter = 0;
 
 void buttonSetup()
 {
   // Setting up turnOffSystemPin to turn on. With Brandon's circuit it should latch
-  // the system to stay on. To turn off the system, set turnOffSystemPin to off
+  // the system to stay on. To turn off the system, set turnOffSystemPin to off using the logic found in this .cpp file
   pinMode(turnOffSystemPin, OUTPUT);
   digitalWrite(turnOffSystemPin, HIGH);
 
   oneButton.begin(); // Initialize the button
   oneButton.onPressed(oneTap); // Set up the button for a single tap/press
-  oneButton.onPressedFor(timePressed_foursec, fourSecFunc); // Set up the button for a 4 second long press
+  oneButton.onPressedFor(timePressed_milliseconds, fourSecFunc); // Set up the button for a 4 second long press
 
+  
   if (oneButton.supportsInterrupt()) // Setting up interrupts using the EasyButton library
   {
     oneButton.enableInterrupt(oneButtonISR);
     Serial.println("Settings interrupts with the oneButton");
   }
+  
 }
 
-void fourSecFunc()
-{
-  buttonPressedFourSeconds = 1;
-}
 
 void oneButtonISR()
 {
@@ -40,27 +46,83 @@ void oneButtonISR()
 }
 
 
+void fourSecFunc()                 // This is called fourSecFunc, because everytime I change the name I get a compiler error. I think my Arduino IDE on my computer may be broken - Raven
+{
+  buttonLongPressed = 1;
+}
+
 void oneTap()
 {
   buttonPressed = 1;
+
+  
+  //counter++;                     // Uncomment this if you want to use the button without interrupts. 
+  //Serial.println("Tapped once"); // For testing purposes
+  //Serial.print("Counter: ");     // For testing purposes
+  //Serial.println(counter);       // For testing purposes
 }
 
 void updateButton()
 {
-  oneButton.update();
+  //oneButton.read(); // uncomment this if you're using the button WITHOUT interrupts. Only works with oneButton.onPressed(oneTap), 
+  oneButton.update(); // uncomment this if you're using the button WITH interrupts
 }
 
 void checkButton()
 {
+  
   if (buttonPressed)
   {
     Serial.println("Tapped once");
     buttonPressed = 0;
   }
-  else if (buttonPressedFourSeconds)
+  else if (buttonLongPressed)
   {
-    Serial.println("Button held for four seconds. Turning off the system.");
-    buttonPressedFourSeconds = 0;
+    Serial.print("Button held for");
+    Serial.print(timePressed_milliseconds);
+    Serial.print(" milliseconds. Turning off the system");
+    buttonLongPressed = 0;
     digitalWrite(turnOffSystemPin, LOW); // Turn off the system. 
   }
-}
+
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+  // Uncomment the code below to use the button without interrupts
+  /*
+  
+  if (counter >= 5)
+  {
+    Serial.println("Button held for four seconds. Turning off the system.");
+    buttonLongPressed = 0;
+    digitalWrite(turnOffSystemPin, LOW); // Turn off the system. 
+  }
+
+  else 
+  {
+    Serial.println("Restarting counter");
+    if (millis() - lastTime > 2000){
+      Serial.println("AAAAAAAAAAAAAAA");
+      lastTime = millis();
+      if (counter < 0)
+      {
+        counter = 0;
+      }
+ 
+      else{
+        counter--;
+      }
+
+      Serial.print("RCounter: ");
+      Serial.println(counter);
+    }
+  }
+
+  /*
+   
+   */
+
+
+
+   
+} // end of checkButton();
