@@ -61,12 +61,12 @@ void intesityStatus(int dataPoint){
   // has the value changed since the last read
   boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
 
-  if(intestyChanged){
+  //if(intestyChanged){
     intesityCharacteristic.writeValue(percentage);
     //Serial.print("intesity changed to : ");////
     //Serial.print(dataPoint);////
     //Serial.println("");////
-  }
+ // }
 }
 
 void percentageStatus(int inc){
@@ -76,7 +76,7 @@ void percentageStatus(int inc){
   // has the value changed since the last read
   boolean percentageChanged = (percentageCharacteristic.value() != inc); // is the percentage in the loop
 
-  if(percentageChanged){
+  //if(percentageChanged){
     percentageCharacteristic.writeValue(inc);
     percentageOutput(inc);////
     //Serial.print("% changed to : "); ////
@@ -84,7 +84,7 @@ void percentageStatus(int inc){
     //Serial.print("%");////
     //Serial.println("");////
     //Serial.println(percentageCharacteristic.value()); ////
-  }
+  //}
 }
 
 void printVal (char string[] , float data){

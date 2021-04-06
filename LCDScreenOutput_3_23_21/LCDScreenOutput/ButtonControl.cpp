@@ -9,7 +9,7 @@ bool buttonLongPressed = 0;
 
 int timePressed_milliseconds = 2000; // 2 seconds, or 2000 milliseconds because why not. 
 
-unsigned int debounce = 40;
+unsigned int debounce = 0;
 bool pullup = true;
 bool invert = true;
 EasyButton oneButton(oneButtonPIN, debounce, pullup,  invert);
