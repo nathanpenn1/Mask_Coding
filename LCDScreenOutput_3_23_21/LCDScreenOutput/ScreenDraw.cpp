@@ -295,28 +295,6 @@ void printSecondScreen()
 }
 
 
-void printUV_SECONDSCREEN(){
-    //Printing out the sensor on the arduino for testing. 
-    tft.fillRoundRect(135,65, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
-    tft.setCursor(135,65); // set the cursor
-    tft.setTextColor(tft.color565(255, 0, 0));
-    tft.setTextSize(2);
-
-    // Print out the current sensor value into the screen. 
-    sensorValue = analogRead(A0);
-    tft.print(sensorValue);
-}
-
-void printPercentage_SECONDSCREEN(int i){
-    tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
-    tft.setCursor(270,15); // set the cursor
-    tft.setTextColor(tft.color565(255, 0, 0));
-    tft.setTextSize(2);
-    tft.print(i);
-    tft.print("%");
-}
-
-
 // This function is used to check how many milliseconds it takes for each frame.
 /*
 3/22/21 Average framerate was around 360 milliseconds, resulting in a frame rate/ refresh rate of 
