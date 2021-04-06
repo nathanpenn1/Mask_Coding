@@ -7,7 +7,7 @@
 bool buttonPressed = 0;
 bool buttonLongPressed = 0;
 
-int timePressed_milliseconds = 2551; // 2.5 seconds, or 2551 milliseconds because why not. 
+int timePressed_milliseconds = 2000; // 2 seconds, or 2000 milliseconds because why not. 
 
 unsigned int debounce = 40;
 bool pullup = true;
