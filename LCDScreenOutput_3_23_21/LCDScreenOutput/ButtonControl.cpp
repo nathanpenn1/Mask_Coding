@@ -1,14 +1,16 @@
 #include "ButtonControl.h"
+#include "ScreenDraw.h"
 #include <EasyButton.h>
 
 #define oneButtonPIN D2 // 3/16/21
 #define turnOffSystemPin D4 // 3/24/21 
 
-unsigned int screenSelect = 1; // Choose the screen you would like to display. 1 = first screen, 2 = second screen, etc. 
 bool buttonPressed = 0;
 bool buttonLongPressed = 0;
 
-int timePressed_milliseconds = 2551; // 2.5 seconds, or 2551 milliseconds because why not. 
+int timePressed_milliseconds = 2000; // 2.0 seconds, or 2000 milliseconds because why not. 
+
+//unsigned int screenSelect_BC = 1;
 
 unsigned int debounce = 40;
 bool pullup = true;
@@ -71,16 +73,20 @@ void updateButton()
 
 void checkButton()
 {
-  
+  int checking = checkScreenSelect();
   if (buttonPressed)
   {
     Serial.println("Tapped once"); // Tapped once, change the screen
     buttonPressed = 0;
 
-    if(screenSelect == 1){
-      screenSelect = 2;
+    if(checking == 1){
       printSecondScreen();
     }
+
+    if(checking == 2){
+      rePrintFirstScreen();
+    }
+
     
   }
   else if (buttonLongPressed)

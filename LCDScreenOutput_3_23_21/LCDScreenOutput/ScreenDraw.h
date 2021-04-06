@@ -3,20 +3,18 @@
 
 void screenSetup();
 
+// General functions
 void drawingF(int Cx, int Cy, int R, int G, int B, int textSize);
+void checkFrameTime(); 
+int checkScreenSelect();
+void setUpGraphCoords(bool q); // Used to setup the variables for the UV graph.
 
+// First Screen Functions
 void percentageOutput(int i);
-
-void printWarning(); // Raven 3/17/21
-
-void printUV(); // Raven 3/6/21
-
-void graphUV(); // Raven 3/6/21
-
-void read_y2(); // Raven 3/12/21
-
-void checkFrameTime(); // Raven 3/22/2021
-
+void printWarning(); 
+void printUV(); 
+void graphUV(); 
+void rePrintFirstScreen();
 
 // Second Screen Functions
 void printSecondScreen();
