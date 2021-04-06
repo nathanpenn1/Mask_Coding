@@ -17,6 +17,11 @@ void read_y2(); // Raven 3/12/21
 
 void checkFrameTime(); // Raven 3/22/2021
 
+
+// Second Screen Functions
 void printSecondScreen();
+void printUV_SECONDSCREEN();
+void printPercentage_SECONDSCREEN(int i);
+
 
 #endif

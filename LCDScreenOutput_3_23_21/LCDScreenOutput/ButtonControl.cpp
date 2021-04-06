@@ -4,6 +4,7 @@
 #define oneButtonPIN D2 // 3/16/21
 #define turnOffSystemPin D4 // 3/24/21 
 
+unsigned int screenSelect = 1; // Choose the screen you would like to display. 1 = first screen, 2 = second screen, etc. 
 bool buttonPressed = 0;
 bool buttonLongPressed = 0;
 
@@ -73,8 +74,14 @@ void checkButton()
   
   if (buttonPressed)
   {
-    Serial.println("Tapped once");
+    Serial.println("Tapped once"); // Tapped once, change the screen
     buttonPressed = 0;
+
+    if(screenSelect == 1){
+      screenSelect = 2;
+      printSecondScreen();
+    }
+    
   }
   else if (buttonLongPressed)
   {

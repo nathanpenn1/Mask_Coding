@@ -308,8 +308,8 @@ void printUV_SECONDSCREEN(){
 }
 
 void printPercentage_SECONDSCREEN(int i){
-    tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
-    tft.setCursor(270,15); // set the cursor
+    tft.fillRoundRect(135,15, 50, 15, 0, tft.color565(0, 0, 0)); 
+    tft.setCursor(135,15); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
     tft.setTextSize(2);
     tft.print(i);
