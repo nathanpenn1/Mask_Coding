@@ -12,7 +12,7 @@ int timePressed_milliseconds = 2000; // 2.0 seconds, or 2000 milliseconds becaus
 
 //unsigned int screenSelect_BC = 1;
 
-unsigned int debounce = 40;
+unsigned int debounce = 0;
 bool pullup = true;
 bool invert = true;
 EasyButton oneButton(oneButtonPIN, debounce, pullup,  invert);

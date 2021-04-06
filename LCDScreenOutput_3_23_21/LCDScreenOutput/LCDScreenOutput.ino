@@ -27,7 +27,7 @@ void setup() {
 
 void loop() {
 
-  int batteryPinVoltage = analogRead(A7); // Read the voltage that the battery pack is sending.
+  int batteryPinVoltage = analogRead(A6); // Read the voltage that the battery pack is sending.
   checkFrameTime();
   
   updateButton();
