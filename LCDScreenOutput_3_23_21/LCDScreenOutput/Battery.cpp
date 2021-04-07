@@ -1,6 +1,7 @@
 #include "Battery.h"
 
-#define MAX_VOLTAGE 3
+//#define MAX_VOLTAGE 3
+#define MAX_VOLTAGE 2.875 // Our max voltage is 11.5, because a diode takes away 0.5 V. So 11.5/4 = 2.875 V
 
 int calculateBatteryPercentage(int batteryPin)
 {

@@ -18,21 +18,19 @@
 #define minorX 4
 #define minorY 4
 
-#define numOfPoints 7
-#define numPixels 300 
-
-
 int sensorValue; 
 
+// Variables used for graphing the UV sensor value
 int x1 = 45;
 int yOne = 0;
-
-
 int x2 = x1 + 45;
 int y2 = 0;
-Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RESET, TFT_MISO); // Bringing instantiation of screen outside ScreenDraw.cpp
 
-// 3/22/21
+// Variables used for changing the screen
+int mode = 1; // Default is 1, which is the screen which shows the graph. 
+
+// Creating instantiation of the screen. 
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RESET, TFT_MISO); // Bringing instantiation of screen outside ScreenDraw.cpp
 
 unsigned int coordinatesX[numOfPoints] = {0};
 unsigned int coordinatesY[numOfPoints] = {0};
@@ -51,22 +49,10 @@ void screenSetup(){
   // Init display
   tft.begin();
   //printWarning(); // Print the warning label. Comment this out to hasten debugging
-  
-  // Setting up coordinates.
-  for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
-  {
-    if (dummyVariable == 0)
-      coordinatesX[dummyVariable] += divisionSize;
-    else
-      coordinatesX[dummyVariable] += divisionSize*(dummyVariable+1);
-  }
-  
-  for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
-  {
-    coordinatesY[dummyVariable] = 180; //Defaulting to this value for now. 
-    
-  }
 
+  setUpGraphCoords(initializePoints);
+  initializePoints = 0; // Set this to 0. This flag is used to fix a bug, where it would truncate a part of the graph's output everytime you change screen. 
+  
   tft.setRotation(3);
   tft.fillScreen(tft.color565(0, 0, 0));
   
@@ -110,6 +96,32 @@ void drawingF(int Cx, int Cy, int R, int G, int B, int textSize)
   tft.setTextSize(textSize);
 }
 
+void setUpGraphCoords(bool q)  
+{
+  if (q == 1)
+  {
+    // Setting up coordinates.
+    for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
+    {
+      if (dummyVariable == 0)
+        coordinatesX[dummyVariable] += divisionSize;
+      else
+        coordinatesX[dummyVariable] += divisionSize*(dummyVariable+1);
+    }
+  
+    for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
+    {
+      coordinatesY[dummyVariable] = 180; //Defaulting to this value for now. 
+    }
+  }
+
+  else
+  {
+    // do nothing, since the points have been initialized. 
+  }
+  
+}
+
 void printWarning()
 {
   tft.setRotation(3);
@@ -132,6 +144,10 @@ void printWarning()
 
   delay(5000);
 }
+
+
+
+
 
 void percentageOutput(int i){
     tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
@@ -265,6 +281,125 @@ void graphUV(){
   
 }
 
+void rePrintFirstScreen()
+{
+  mode = 1;
+  // Turn on backlight
+  pinMode(TFT_LED, OUTPUT);
+  digitalWrite(TFT_LED, HIGH);
+
+  /*
+  // Setting up coordinates.
+  for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
+  {
+    if (dummyVariable == 0)
+      coordinatesX[dummyVariable] += divisionSize;
+    else
+      coordinatesX[dummyVariable] += divisionSize*(dummyVariable+1);
+  }
+  
+  for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
+  {
+    coordinatesY[dummyVariable] = 180; //Defaulting to this value for now. 
+    
+  }
+  */
+   
+  tft.setRotation(3);
+  tft.fillScreen(tft.color565(0, 0, 0));
+  
+  // Title (UV Mask)
+  drawingF(5, 15, 80, 149, 201, 3);
+  tft.println("UV MASK");
+  
+  // drawing label "Percentage"
+  drawingF(140, 15, 100, 100, 100, 2);
+  tft.println("Percentage: ");
+  
+  // drawing label "UV Intesity Graph"
+  drawingF(60, 50, 100, 100, 100, 2);
+  tft.println("UV Intensity Graph");
+  
+  // draw the two axis
+  tft.drawLine(originX, originY, (originX + sizeX), originY,tft.color565(255, 255, 255));
+  tft.drawLine(originX, originY, originX, (originY - sizeY),tft.color565(255, 255, 255));
+  
+  // draw the little dividers on the lines
+  for(int i = originX + 6; i <= (originX + sizeX); i= i + 4){
+    tft.drawLine(i, originY, i, (originY + minorY),tft.color565(255, 255, 255));
+  }
+  for(int i = originY - 6; i >= (originY - sizeY); i= i - 4){
+    tft.drawLine(originX, i, (originX - minorX), i,tft.color565(255, 255, 255));
+  }
+  
+  // draw the x-axis label
+  drawingF(150, 230, 100, 100, 100, 1);
+  tft.println("Time(s)");
+  
+  // draw the y-axis label
+  drawingF(12, 60, 100,100, 100, 1);
+  tft.println("mW/cm2");
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Second screen functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void printSecondScreen()
+{
+  mode = 2; // Change screenSelect to 2, symbolizing that you are now on the second screen. 
+  
+  // Turn on backlight
+  pinMode(TFT_LED, OUTPUT);
+  digitalWrite(TFT_LED, HIGH);
+  
+  tft.setRotation(3);
+  tft.fillScreen(tft.color565(0, 0, 0));
+  
+  // draw the title
+  drawingF(5, 15, 80, 149, 201, 2);
+  tft.println("BetterBreath: 2nd Screen");
+  
+  // drawing label "Percentage"
+  drawingF(5, 50, 100, 100, 100, 2);
+  tft.println("Percentage: ");
+  
+  // drawing label "UV Analog"
+  drawingF(5, 65, 100, 100, 100, 2);
+  tft.println("UV Analog: ");
+}
+
+
+void printUV_SECONDSCREEN(){
+    //Printing out the sensor on the arduino for testing. 
+    tft.fillRoundRect(135,65, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(135,65); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+
+    // Print out the current sensor value into the screen. 
+    sensorValue = analogRead(A0);
+    tft.print(sensorValue);
+}
+
+void printPercentage_SECONDSCREEN(int i){
+    tft.fillRoundRect(135,50, 50, 15, 0, tft.color565(0, 0, 0)); 
+    tft.setCursor(135,50); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+    tft.print(i);
+    tft.print("%");
+}
+
+
+
+int checkScreenSelect()
+{
+  return mode; // return the mode. 
+}
+
 // This function is used to check how many milliseconds it takes for each frame.
 /*
 3/22/21 Average framerate was around 360 milliseconds, resulting in a frame rate/ refresh rate of 
@@ -300,6 +435,37 @@ void checkFrameTime(){
   lastFrameTime = millis();
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
