@@ -181,6 +181,13 @@ void printUV(){
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
     tft.print(sensorValue);
+
+
+  /*
+    // Calibration Curve : 5.69x - 2.75. 
+    int calibrationCurveValue = (5.69*sensorValue) - 2.75;
+    tft.print(calibrationCurveValue);
+ */
     
 }
 
