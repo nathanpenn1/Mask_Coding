@@ -18,6 +18,8 @@
 #define minorX 4
 #define minorY 4
 
+#define numOfPoints 7
+#define numPixels 300 
 
 
 int sensorValue; 
@@ -31,16 +33,15 @@ int y2 = 0;
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RESET, TFT_MISO); // Bringing instantiation of screen outside ScreenDraw.cpp
 
 // 3/22/21
-#define numOfPoints 7 // 7 
+
 unsigned int coordinatesX[numOfPoints] = {0};
 unsigned int coordinatesY[numOfPoints] = {0};
-// we got 300 pixels to work with for the screen. Correct me if I'm wrong. 
-unsigned int divisionSize = 300/numOfPoints;
+unsigned int divisionSize = numPixels/numOfPoints;
 unsigned int point = 0;
 
 // 3/22/2021
 unsigned long lastFrameTime = millis();
-int timer = 20; // 20 ms seconds per frame
+int timer = 20; // 20 ms per frame
 
 void screenSetup(){
   
@@ -65,7 +66,7 @@ void screenSetup(){
     coordinatesY[dummyVariable] = 180; //Defaulting to this value for now. 
     
   }
-  Serial.println("done");// For testing purposes. Other wise get rid of this in the final product. 
+
   tft.setRotation(3);
   tft.fillScreen(tft.color565(0, 0, 0));
   

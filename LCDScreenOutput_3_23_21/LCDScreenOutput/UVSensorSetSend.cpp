@@ -18,57 +18,57 @@ void blink(){
 */
 
 
-int averageAnalogRead(int pinToRead){
-	byte numberOfReadings = 8;
-	unsigned int runningValue = 0;
-
-	for(int x = 0; x < numberOfReadings; x++)
-		runningValue += analogRead(pinToRead);
-	runningValue /= numberOfReadings;
-
-	return(runningValue);
-}
-
-float mapfloat(float x, float in_min, float in_max, float out_min, float out_max){
-
-  // Used for testing, feel free to remove. 
-  /*
-  Serial.print("x = ");
-  Serial.println(x);
-
-  Serial.print("in_min = ");
-  Serial.println(in_min);
-
-  Serial.print("in_max ");
-  Serial.println(in_max);
-
-  Serial.print("out_min = ");
-  Serial.println(out_min);
-
-  Serial.print("out_max = ");
-  Serial.println(out_max);
-  */
-
-  // Code below should fix the negative intensity
-  // Error when x < 0.99.
-  // makes the entire thing UV intensity go to -8.20.
-
-  
-  float firstPart = x - in_min;
-  float returnThis;
-
-  if (firstPart < 0){
-    returnThis = 0; // Make it 0, since the UV sensor is not detecting anything. 
-  }
-
-  else{
-    returnThis = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-  }
-
-  return returnThis;
-
-	
-}
+//int averageAnalogRead(int pinToRead){
+//	byte numberOfReadings = 8;
+//	unsigned int runningValue = 0;
+//
+//	for(int x = 0; x < numberOfReadings; x++)
+//		runningValue += analogRead(pinToRead);
+//	runningValue /= numberOfReadings;
+//
+//	return(runningValue);
+//}
+//
+//float mapfloat(float x, float in_min, float in_max, float out_min, float out_max){
+//
+//  // Used for testing, feel free to remove. 
+//  /*
+//  Serial.print("x = ");
+//  Serial.println(x);
+//
+//  Serial.print("in_min = ");
+//  Serial.println(in_min);
+//
+//  Serial.print("in_max ");
+//  Serial.println(in_max);
+//
+//  Serial.print("out_min = ");
+//  Serial.println(out_min);
+//
+//  Serial.print("out_max = ");
+//  Serial.println(out_max);
+//  */
+//
+//  // Code below should fix the negative intensity
+//  // Error when x < 0.99.
+//  // makes the entire thing UV intensity go to -8.20.
+//
+//  
+//  float firstPart = x - in_min;
+//  float returnThis;
+//
+//  if (firstPart < 0){
+//    returnThis = 0; // Make it 0, since the UV sensor is not detecting anything. 
+//  }
+//
+//  else{
+//    returnThis = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+//  }
+//
+//  return returnThis;
+//
+//	
+//}
 
 void uvSensorSetup(){
 	//Serial.begin(9600);
@@ -89,32 +89,73 @@ void uvSensorSetup(){
   */
 }
 
-void uvSensorStatus(){
-	int uvAnalog = averageAnalogRead(UVOUT);
-	int refVoltage = averageAnalogRead(REF_3V3); // Using 3.3 Volts for our reference voltage, for good accuracy
+double AverageFilter (double input) {
+  static double buf[N];
+  static double sum;
+  static int buf_ptr;
 
-	float sensorOutputVoltage = 3.3 / refVoltage * uvAnalog;
-	// Convert the voltage to a UV intensity level
-	float uvIntensity = mapfloat(sensorOutputVoltage, 0.99, 2.8, 0.0, 15.0);
+  sum -= buf[buf_ptr];
+  buf[buf_ptr] = input;
+  sum += buf[buf_ptr++];
+  buf_ptr %= N;
 
-  /*
-	// Print into the serial monitor for testing/debugging
-	Serial.print("output: ");
-	Serial.println(refVoltage);
+  return ((sum / N));
+}
 
-	Serial.print("Parallax 28091 output: "); // Missing semi colon here. 
-	Serial.println(uvAnalog);
-
-	Serial.print("Parallax 28091 voltage: ");
-	Serial.println(sensorOutputVoltage);
-
-	Serial.print("UV Intensity (mW/cm^2): ");
-	Serial.println(uvIntensity);
-
-  Serial.println("");
-  Serial.println("");
-  */
- 
+void uvSensorStatus(int data){
+  //double uvLevel = analogRead(UVOUT);
   
-	
-}	
+
+  //int refLevel = averageAnalogRead(REF_3V3);
+  double uvAverage = AverageFilter(data); // uvLevel needs to be replaced
+  // Use the 3.3V power pin as a reference to get a very accurate output value from sensor
+  //float outputVoltage = 3.3 / refLevel * uvLevel;
+  // Convert the voltage to a UV intensity level
+  //float uvIntensity = mapfloat(outputVoltage, 0.99, 2.8, 0.0, 15.0);
+
+  //printVal("output: ", refLevel);
+  /*
+  Serial.println("output: ");
+  Serial.print(refLevel);
+
+  Serial.println("ML8511 output: ")
+  Serial.print(uvLevel);
+
+  Serial.println("ML8511 voltage: ");
+  Serial.print(outputVoltage);
+  */
+  Serial.println("UV Intensity (mW/cm^2): ");
+  Serial.print(uvAverage);
+  
+}
+
+
+//void uvSensorStatus(){
+//	int uvAnalog = averageAnalogRead(UVOUT);
+//	int refVoltage = averageAnalogRead(REF_3V3); // Using 3.3 Volts for our reference voltage, for good accuracy
+//
+//	float sensorOutputVoltage = 3.3 / refVoltage * uvAnalog;
+//	// Convert the voltage to a UV intensity level
+//	float uvIntensity = mapfloat(sensorOutputVoltage, 0.99, 2.8, 0.0, 15.0);
+//
+//  /*
+//	// Print into the serial monitor for testing/debugging
+//	Serial.print("output: ");
+//	Serial.println(refVoltage);
+//
+//	Serial.print("Parallax 28091 output: "); // Missing semi colon here. 
+//	Serial.println(uvAnalog);
+//
+//	Serial.print("Parallax 28091 voltage: ");
+//	Serial.println(sensorOutputVoltage);
+//
+//	Serial.print("UV Intensity (mW/cm^2): ");
+//	Serial.println(uvIntensity);
+//
+//  Serial.println("");
+//  Serial.println("");
+//  */
+// 
+//  
+//	
+//}	

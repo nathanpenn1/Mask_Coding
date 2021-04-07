@@ -17,7 +17,6 @@ void setup() {
   bluetoothSetup();
   uvSensorSetup();
   buttonSetup();
-  //pinMode(oneButtonPIN, INPUT_PULLUP);
 }
 
 void loop() {
@@ -25,12 +24,10 @@ void loop() {
   checkFrameTime();
   updateButton();
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
-  Serial.println(batteryPinVoltage);
-//  batteryPercentage = calculateBatteryPercentage(inc);
+//  Serial.println(batteryPinVoltage); // for debugging purposes
 
   bluetoothStatus();
-//  percentageStatus(inc);
-  percentageStatus(batteryPercentage); // for when we have a battery percentage to report
+  percentageStatus(batteryPercentage); // reporting the battery percentage based on pin A7
   intesityStatus(dataPoint);
   uvSensorStatus();
   checkButton();
@@ -38,12 +35,6 @@ void loop() {
   // Raven 3/6/21
   printUV();
   graphUV();
-
-  // incrementing percentage
-  if (inc < 4)
-    inc = inc + 1;
-  else
-    inc = 0;
 
   if (dataPoint < 50)
     dataPoint = dataPoint + 1;

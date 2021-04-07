@@ -4,22 +4,21 @@
 
 int calculateBatteryPercentage(int batteryPin)
 {
-  // not multiplying by 3 to make calculations easier
-//  double volt = (MAX_VOLTAGE - (double)batteryPin)/MAX_VOLTAGE; 
-//  volt *= 100;
+  double voltage = (3.3/1023)*batteryPin; // convert the value read from the battery pin to a voltage
 
-  double voltage = (3.3/1023)*batteryPin;
-  if(voltage >= 3.0)
+  // make sure the voltage is within the range 0 to 3 volts
+  if(voltage >= (double)MAX_VOLTAGE)
   {
-    voltage = 3.0;
+    voltage = (double)MAX_VOLTAGE;
   }
   if(voltage <= 0.0)
   {
     voltage = 0.0;
   }
+
+  // convert the voltage reading to a percentage 
   double res = voltage/MAX_VOLTAGE;
   res *= 100;
   return (int)res;
     
-//  return (int)volt;
 }
