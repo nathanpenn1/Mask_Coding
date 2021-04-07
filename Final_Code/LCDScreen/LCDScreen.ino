@@ -1,4 +1,3 @@
-
 #include "SPI.h"
 #include "ScreenDraw.h"
 #include "BluetoothSetSend.h"
@@ -32,6 +31,12 @@ void loop() {
   
   updateButton();
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
+  Serial.println(batteryPinVoltage);
+  //batteryPercentage = calculateBatteryPercentage(inc);
+
+  bluetoothStatus();
+  //percentageStatus(inc);
+  percentageStatus(batteryPercentage); // for when we have a battery percentage to report
   intesityStatus(dataPoint);
   uvSensorStatus();
   checkButton();
@@ -47,6 +52,12 @@ void loop() {
     printUV_SECONDSCREEN();
     //printPercentage_SECONDSCREEN(i);
   }
+
+  // incrementing percentage
+  if (inc < 4)
+    inc = inc + 1;
+  else
+    inc = 0;
 
   if (dataPoint < 50)
     dataPoint = dataPoint + 1;

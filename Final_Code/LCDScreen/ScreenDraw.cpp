@@ -18,6 +18,7 @@
 #define minorX 4
 #define minorY 4
 
+// Creating variable to hold the UV Sensor value
 int sensorValue; 
 
 // Variables used for graphing the UV sensor value
@@ -32,14 +33,18 @@ int mode = 1; // Default is 1, which is the screen which shows the graph.
 // Creating instantiation of the screen. 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RESET, TFT_MISO); // Bringing instantiation of screen outside ScreenDraw.cpp
 
+// Variables used for the UV Graph
+#define numOfPoints 7 // 7 
+bool initializePoints = 1;
 unsigned int coordinatesX[numOfPoints] = {0};
 unsigned int coordinatesY[numOfPoints] = {0};
-unsigned int divisionSize = numPixels/numOfPoints;
+// we got 300 pixels to work with for the screen. Correct me if I'm wrong. 
+unsigned int divisionSize = 300/numOfPoints;
 unsigned int point = 0;
 
 // 3/22/2021
 unsigned long lastFrameTime = millis();
-int timer = 20; // 20 ms per frame
+int timer = 20; // 20 ms seconds per frame
 
 void screenSetup(){
   
@@ -404,18 +409,14 @@ int checkScreenSelect()
 /*
 3/22/21 Average framerate was around 360 milliseconds, resulting in a frame rate/ refresh rate of 
 This includes everything, including the calculation for all the sensors, graphing and bluetooth. 
-
 Without   bluetoothStatus(), percentageStatus(inc), intesityStatus(dataPoint) and uvSensorStatus(), thhe refresh rate
 is about 290 ms per frame, which is about 4 frames per second. 
-
 3/23/21 Around 2:18 AM
 Average framerate is around 330 ms per frame (or about 3 frames per second, if my math is right.), 
 when redrawing the line and shifting everything by 1 to the left. This is without bluetoothStatus(),
 percentageStatus(inc), intesityStatus(dataPoint) and uvSensorStatus(), 
-
 WITH these functions, its about 500 or 400 ms per frame, leading up to 2 frames per second in the best
 case scenario. 
-
 */
 void checkFrameTime(){
   
@@ -435,132 +436,3 @@ void checkFrameTime(){
   lastFrameTime = millis();
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Old graphUV.
-/*
-
-  
-  //////////////////////////////////////////////////
-  // The graph is divided are divided into 7 quadrants, both in the X and Y direction
-  //////////////////////////////////////////////////
-  
-  // Draw a black circle to get rid of the old one. 
-  tft.drawCircle(x1,yOne, 1, tft.color565(0, 0, 0));
-
-  // Recording point 2
-  //y2 = analogRead(A0);
-  read_y2();
-
-  // Dont draw line if point 1 is at location 7, and point 2 is at location 1. Reset the Graph
-  if (x2 <= 45 && x1 >= 315){
-    // dont draw the line. Reset the graph.
-    //tft.fillRect(  (originX+1),  (originY - 1),   (originX+sizeX), (originY-sizeY), tft.color565(0, 0, 0)   ); 2:25 PM
-    
-    Serial.println("Start erasing graph");
-    tft.fillRect(  (originX+1),  (originY - sizeY),   sizeX, sizeY, tft.color565(0, 0, 0)   ); 
-    Serial.println("Done erasing graph");
-    
-  }
-
-  // if not then draw the line. 
-  else{
-    tft.drawLine(x1, yOne, x2, y2, tft.color565(255, 255, 255));
-  }
-
-  // I've divided our width into 7 quadrants, if it surpasses it go back to the 1st quadrant
-  x1 += 45;
-  if ( x1 >= 360){
-    x1 = 45;
-  }
-  
-  // the next point
-  x2 += 45;
-  if ( x2 >= 360){
-    x2 = 45;
-  }
-
-  
-
-  
-  sensorValue = analogRead(A0);
-
-  if (sensorValue >= 620){
-    tft.drawCircle(x1,70, 1, tft.color565(255, 255, 255)); // Draw circle
-    yOne = 70;
-  }
-
-  else if (sensorValue >= 520){
-    tft.drawCircle(x1,90, 1, tft.color565(255, 255, 255));
-    yOne = 90;
-  }
-
-  else if (sensorValue >= 420){
-    tft.drawCircle(x1,115, 1, tft.color565(255, 255, 255));
-    yOne = 115;
-  }
-
-  else if (sensorValue >= 320){
-    tft.drawCircle(x1,135, 1, tft.color565(255, 255, 255));
-    yOne = 135;
-  }
-
-  else if (sensorValue >= 220){
-    tft.drawCircle(x1,160, 1, tft.color565(255, 255, 255));
-    yOne = 160;
-  }
-
-  else if (sensorValue >= 120){
-    tft.drawCircle(x1,185, 1, tft.color565(255, 255, 255));
-    yOne = 185;
-  }
-
-  else if (sensorValue >= 20){
-    tft.drawCircle(x1,210, 1, tft.color565(255, 255, 255));
-    yOne = 210;
-  }
-
-  else if (sensorValue >= 0){
-    tft.drawCircle(x1,215, 1, tft.color565(255, 255, 255));
-    yOne = 215;
-  }
-    
-  
-
-
-
-
-  
- */
