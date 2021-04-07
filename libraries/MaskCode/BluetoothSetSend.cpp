@@ -54,7 +54,7 @@ void bluetoothStatus(){
   }
 }
 
-void intesityStatus(int dataPoint){
+void intesityStatus(double dataPoint){
   // read the current percentage value
   // int percentage = digitalRead(pin #);
 
@@ -62,10 +62,13 @@ void intesityStatus(int dataPoint){
   boolean intestyChanged = (intesityCharacteristic.value() != dataPoint); // is the percentage in the loop
 
   if(intestyChanged){
-    intesityCharacteristic.writeValue(dataPoint);
+    intesityCharacteristic.writeValue(600);/////
     Serial.print("intesity changed to : ");
     Serial.print(dataPoint);
     Serial.println("");
+    Serial.println(intesityCharacteristic.valueSize());
+    Serial.println(intesityCharacteristic.valueLength());
+    Serial.println(intesityCharacteristic.value());
   }
 }
 

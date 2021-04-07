@@ -11,6 +11,4 @@ void uvSensorStatus(int data);
 
 double AverageFilter(double input);
 
-
-
 #endif
