@@ -5,10 +5,16 @@
 #include "ButtonControl.h"
 #include "Battery.h"
 
+// Test variables
 int inc = 0;
 int dataPoint = 0;
-int timeVal = 0;
+
+// Battery Percentage Variables
 int batteryPercentage = 0;
+
+// Screen-related variables
+unsigned int screenSelect = checkScreenSelect();
+
 
 
 void setup() {
@@ -19,19 +25,39 @@ void setup() {
 }
 
 void loop() {
-  int batteryPinVoltage = analogRead(A7); // Read the voltage that the battery pack is sending.
+
+  int batteryPinVoltage = analogRead(A6); // Read the voltage that the battery pack is sending.
   checkFrameTime();
+  
   updateButton();
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
+  Serial.println(batteryPinVoltage);
+  //batteryPercentage = calculateBatteryPercentage(inc);
 
   bluetoothStatus();
-  percentageStatus(batteryPercentage); // reporting the battery percentage based on pin A7
+  //percentageStatus(inc);
+  percentageStatus(batteryPercentage); // for when we have a battery percentage to report
   intesityStatus(dataPoint);
   uvSensorStatus();
   checkButton();
 
-  printUV();
-  graphUV();
+
+  screenSelect = checkScreenSelect();
+  if (screenSelect == 1){
+    printUV();
+    graphUV();
+  }
+
+  else if (screenSelect == 2){
+    printUV_SECONDSCREEN();
+    //printPercentage_SECONDSCREEN(i);
+  }
+
+  // incrementing percentage
+  if (inc < 4)
+    inc = inc + 1;
+  else
+    inc = 0;
 
   if (dataPoint < 50)
     dataPoint = dataPoint + 1;
