@@ -12,7 +12,8 @@ BLEIntCharacteristic timeChracteristic("2A59", BLERead | BLENotify);
 
 void bluetoothSetup(){
   Serial.begin(9600); // initialize serial communication
-
+//while(!Serial); // This line of code prevents the arduino from starting, so I'm disabling it for now.
+  
   if(!BLE.begin()){     // initialize BLE
     Serial.println("starting BLE failed!");
     while(1);
@@ -50,29 +51,33 @@ void bluetoothStatus(){
   }
 }
 
-void intesityStatus(int dataPoint){
-  // read the current percentage value
-  int percentage = analogRead(A0);
-
-  // has the value changed since the last read
-  boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
-
-  if(intestyChanged){
-    intesityCharacteristic.writeValue(percentage);
-  }
-}
-
 void percentageStatus(int inc){
-  // read the current percentage value
-  // int percentage = digitalRead(pin #);
+
+  int checking = checkScreenSelect();
 
   // has the value changed since the last read
   boolean percentageChanged = (percentageCharacteristic.value() != inc); // is the percentage in the loop
 
-  if(percentageChanged){
+  //if(percentageChanged){
     percentageCharacteristic.writeValue(inc);
-    percentageOutput(inc);
-  }
+    if (checking == 1)
+    {
+      percentageOutput(inc);
+    }
+
+    else if (checking == 2)
+    {
+      printPercentage_SECONDSCREEN(inc);
+    }
+
+    else
+    { 
+      // PRINT THE ERROR IF THERE IS AN ERROR.
+      int randomNumber = 123;
+      percentageOutput(randomNumber);
+      printPercentage_SECONDSCREEN(randomNumber);
+    }
+    
 }
 
 void printVal (char string[] , float data){
