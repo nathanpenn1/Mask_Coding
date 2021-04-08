@@ -32,7 +32,7 @@ void loop() {
   
   updateButton();
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
-  Serial.println(batteryPinVoltage);
+  //Serial.println(batteryPinVoltage);
   //batteryPercentage = calculateBatteryPercentage(inc);
 
   bluetoothStatus();

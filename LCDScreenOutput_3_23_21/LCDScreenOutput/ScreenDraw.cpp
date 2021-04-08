@@ -181,6 +181,7 @@ void printUV(){
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
     tft.print(sensorValue);
+    Serial.print("UVANALOG:");Serial.println(sensorValue);
 
 
   /*
