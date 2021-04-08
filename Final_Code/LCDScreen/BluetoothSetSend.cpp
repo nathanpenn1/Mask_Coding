@@ -66,7 +66,7 @@ void percentageStatus(int inc){
     
 }
 
-void intensityStatus(int dataPoint){
+void intensityStatus(){
   // read the current percentage value
   //int percentage = analogRead(A0);
   double mV = convertFromADC();
