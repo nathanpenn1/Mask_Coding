@@ -3,12 +3,14 @@
 
 void percentageStatus(int inc);
 
-void intesityStatus(int dataPoint);
+void intensityStatus(int dataPoint);
 
 void bluetoothStatus();
 
 void bluetoothSetup();
 
 void printVal (char string[] , float data);
+
+double convertFromADC ();
 
 #endif
