@@ -5,7 +5,6 @@
 #define REF_3V3 A1
 
 void uvSensorSetup(){
-  //Serial.begin(9600);
   pinMode(UVOUT, INPUT);
   pinMode(REF_3V3, INPUT);
 }

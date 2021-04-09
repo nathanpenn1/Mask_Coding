@@ -12,7 +12,6 @@ BLEIntCharacteristic timeChracteristic("2A59", BLERead | BLENotify);
 
 void bluetoothSetup(){
   Serial.begin(9600); // initialize serial communication
-//while(!Serial); // This line of code prevents the arduino from starting, so I'm disabling it for now.
   
   if(!BLE.begin()){     // initialize BLE
     Serial.println("starting BLE failed!");
@@ -36,19 +35,6 @@ void bluetoothSetup(){
 
 void bluetoothStatus(){
   BLEDevice central = BLE.central();  // Wait for a BLE central to connect
-
-/////////////REVIEW: Is this needed? Or can it be removed?////////////////
-  // if a central is connected to the peripheral:
-  if (central) {
-    //Serial.print("Connected to central MAC: ");////
-    // print the central's BT address:
-    //Serial.println(central.address());////
-  }
-  else {  
-    // when the central disconnects
-   //Serial.print("Disconnected from central MAC: ");////
-   //Serial.println(central.address());////
-  }
 }
 
 void percentageStatus(int inc){
@@ -80,6 +66,30 @@ void percentageStatus(int inc){
     
 }
 
+void intensityStatus(){
+  // read the current percentage value
+  //int percentage = analogRead(A0);
+  double mV = convertFromADC();
+
+  // has the value changed since the last read
+  //boolean intestyChanged = (intesityCharacteristic.value() != mV); // is the percentage in the loop
+
+  intesityCharacteristic.writeValue(mV);
+
+}
+
 void printVal (char string[] , float data){
   Serial.println(string);
   Serial.print(data);
+}
+
+double convertFromADC (){
+  double sum = 0;
+  for(int i = 0; i < 1000; i++){
+    double v = analogRead(A0);
+    v = (3.3/1023)*v;
+    sum = v + sum;
+  }
+  return (double)(sum / 1000 * 100); // returns mV value
+
+}
