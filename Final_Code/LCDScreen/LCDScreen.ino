@@ -38,8 +38,10 @@ void loop() {
   bluetoothStatus();
   //percentageStatus(inc);
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
+
   intesityStatus(dataPoint);
   uvSensorStatus(uvAnalogValue);
+
   checkButton();
 
 
@@ -52,20 +54,6 @@ void loop() {
   else if (screenSelect == 2){
     printUV_SECONDSCREEN();
     //printPercentage_SECONDSCREEN(i);
-  }
-
-  // incrementing percentage
-  if (inc < 4)
-    inc = inc + 1;
-  else
-    inc = 0;
-
-  if (dataPoint < 50)
-    dataPoint = dataPoint + 1;
-  else
-    dataPoint = 0;
-
-  
-    
+  }  
   delay(100);
 }
