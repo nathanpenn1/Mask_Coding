@@ -37,6 +37,21 @@ void bluetoothStatus(){
   BLEDevice central = BLE.central();  // Wait for a BLE central to connect
 }
 
+void intesityStatus(int dataPoint){
+  // read the current percentage value
+  int percentage = analogRead(A0);
+
+  // has the value changed since the last read
+  boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
+
+  //if(intestyChanged){
+    intesityCharacteristic.writeValue(percentage);
+    //Serial.print("intesity changed to : ");////
+    //Serial.print(dataPoint);////
+    //Serial.println("");////
+  //}
+}
+
 void percentageStatus(int inc){
 
   int checking = checkScreenSelect();
@@ -83,13 +98,3 @@ void printVal (char string[] , float data){
   Serial.print(data);
 }
 
-double convertFromADC (){
-  double sum = 0;
-  for(int i = 0; i < 1000; i++){
-    double v = analogRead(A0);
-    v = (3.3/1023)*v;
-    sum = v + sum;
-  }
-  return (double)(sum / 1000 * 100); // returns mV value
-
-}
