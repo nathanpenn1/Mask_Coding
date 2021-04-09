@@ -3,6 +3,8 @@
 
 #define UVOUT A0
 #define REF_3V3 A1
+#define K 3
+#define N (int)(1<<K)
 
 void uvSensorSetup(){
 	//Serial.begin(9600);
@@ -24,33 +26,35 @@ double AverageFilter (double input) {
 }
 
 void uvSensorStatus(int data){
-  //double uvLevel = analogRead(UVOUT);
   
-
-  //int refLevel = averageAnalogRead(REF_3V3);
   double uvAverage = AverageFilter(data); // uvLevel needs to be replaced
-  // Use the 3.3V power pin as a reference to get a very accurate output value from sensor
-  //float outputVoltage = 3.3 / refLevel * uvLevel;
-  // Convert the voltage to a UV intensity level
-  //float uvIntensity = mapfloat(outputVoltage, 0.99, 2.8, 0.0, 15.0);
 
-  //printVal("output: ", refLevel);
-  /*
-  Serial.println("output: ");
-  Serial.print(refLevel);
+  // Serial prints for testing. Uncomment for testing
+  
+  //Serial.println("output: ");
+  //Serial.print(refLevel);
 
-  Serial.println("ML8511 output: ")
-  Serial.print(uvLevel);
+  //Serial.println("ML8511 output: ")
+  //Serial.print(uvLevel);
 
-  Serial.println("ML8511 voltage: ");
-  Serial.print(outputVoltage);
-  */
-  Serial.println("UV Intensity (mW/cm^2): ");
-  Serial.print(uvAverage);
+  //Serial.println("ML8511 voltage: ");
+  //Serial.print(outputVoltage);
+  
+  //Serial.print("UV Intensity (mW/cm^2): ");
+  //Serial.println(uvAverage);
+
+  // Implementing ma2shita's GUVA library functions here
+
+  // read()
+  float mV = uvAverage * 3.3;
+
+  // index()
+  float uv_index = (mV / 1024) / 0.1;
+  Serial.print("guvaUV_index: ");Serial.print(uv_index);
   
 }
 
-
+// Old uvSensorStatus
 //void uvSensorStatus(){
 //	int uvAnalog = averageAnalogRead(UVOUT);
 //	int refVoltage = averageAnalogRead(REF_3V3); // Using 3.3 Volts for our reference voltage, for good accuracy
