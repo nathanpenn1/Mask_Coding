@@ -32,9 +32,13 @@ int mode = 1; // Default is 1, which is the screen which shows the graph.
 // Creating instantiation of the screen. 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RESET, TFT_MISO); // Bringing instantiation of screen outside ScreenDraw.cpp
 
+// Variables used for the UV Graph
+#define numOfPoints 7 // 7 
+bool initializePoints = 1;
 unsigned int coordinatesX[numOfPoints] = {0};
 unsigned int coordinatesY[numOfPoints] = {0};
-unsigned int divisionSize = numPixels/numOfPoints;
+// we got 300 pixels to work with for the screen. Correct me if I'm wrong. 
+unsigned int divisionSize = 300/numOfPoints;
 unsigned int point = 0;
 
 // 3/22/2021
@@ -175,7 +179,14 @@ void printUV(){
 
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
-    tft.print(sensorValue);
+   //  tft.print(sensorValue);
+    
+    // Calibration Curve, First Iteration: 5.69x - 2.75. 
+
+    // Calibration Curve, Second Iteration: 6.38x + 0.18 after changing with fresh batteries. 
+    int calibrationCurveValue = (6.38*sensorValue) + 0.18;
+    tft.print(calibrationCurveValue);
+    Serial.print("UVANALOGCALIBRATION:");Serial.println(calibrationCurveValue);
     
 }
 
