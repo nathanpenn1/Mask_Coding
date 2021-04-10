@@ -35,6 +35,7 @@ void bluetoothSetup(){
 
 void bluetoothStatus(){
   BLEDevice central = BLE.central();  // Wait for a BLE central to connect
+
 }
 
 void intesityStatus(int dataPoint){
@@ -50,6 +51,7 @@ void intesityStatus(int dataPoint){
     //Serial.print(dataPoint);////
     //Serial.println("");////
   //}
+
 }
 
 void percentageStatus(int inc){
@@ -81,11 +83,32 @@ void percentageStatus(int inc){
     
 }
 
+
+double convertFromADC (){
+  double sum = 0;
+  for(int i = 0; i < 1000; i++){
+    double v = analogRead(A0);
+    v = (3.3/1023)*v;
+    sum = v + sum;
+  }
+  return (double)(sum / 1000 * 100); // returns mV value
+}
+
+// Based of ma2shita's Arduino library for GUVA-S12SD
+double calculateUVIndex(double i){
+  double mV = convertFromADC();
+  double uv_index = (mV / 1024) / 0.1;
+  Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.print("   ");  // Print to serial monitor for testing. 
+}
+
+
 void intensityStatus(){
   // read the current percentage value
   //int percentage = analogRead(A0);
   double mV = convertFromADC();
+  calculateUVIndex(mV);
 
+  // Maybe remove this? The intensity value will likely stay the same, but just wanted to give out a thought. 
   // has the value changed since the last read
   //boolean intestyChanged = (intesityCharacteristic.value() != mV); // is the percentage in the loop
 

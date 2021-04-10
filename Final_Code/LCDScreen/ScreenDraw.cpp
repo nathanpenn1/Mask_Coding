@@ -3,7 +3,7 @@
 #include "ScreenDraw.h"
 #include "BluetoothSetSend.h"
 
-
+// Arduino Pinouts
 #define TFT_MISO D12
 #define TFT_LED D10
 #define TFT_SCK D13
@@ -12,6 +12,7 @@
 #define TFT_RESET D9
 #define TFT_CS D7
 
+// UV Graph constants
 #define originX 20
 #define sizeX 290
 #define originY 220
@@ -19,7 +20,7 @@
 #define minorX 4
 #define minorY 4
 
-// Creating variable to hold the UV Sensor value
+// Variable to hold the UV sensor output.
 int sensorValue; 
 double sensor_mV;
 
@@ -44,12 +45,11 @@ unsigned int coordinatesY[numOfPoints] = {0};
 unsigned int divisionSize = 300/numOfPoints;
 unsigned int point = 0;
 
-// 3/22/2021
+// Variables used to check the framerate, via checkFrameTime()
 unsigned long lastFrameTime = millis();
-int timer = 20; // 20 ms seconds per frame
+int timer = 20; // 20 ms per frame
 
 void screenSetup(){
-  
   // Turn on backlight
   pinMode(TFT_LED, OUTPUT);
   digitalWrite(TFT_LED, HIGH);
@@ -99,10 +99,11 @@ void screenSetup(){
 void drawingF(int Cx, int Cy, int R, int G, int B, int textSize)
 {
   tft.setCursor(Cx,Cy); // set the cursor
-  tft.setTextColor(tft.color565(R, G, B)); // BUGHERE, it was R, B, B
+  tft.setTextColor(tft.color565(R, G, B)); 
   tft.setTextSize(textSize);
 }
 
+// Function to initialize the UV graph's coordinates upon initializing the first screen.
 void setUpGraphCoords(bool q)  
 {
   if (q == 1)
@@ -129,6 +130,7 @@ void setUpGraphCoords(bool q)
   
 }
 
+// Prints a warning label.
 void printWarning()
 {
   tft.setRotation(3);
@@ -155,7 +157,7 @@ void printWarning()
 
 
 
-
+// Prints the Battery Percentage out into the first screen. 
 void percentageOutput(int i){
     tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); 
     tft.setCursor(270,15); // set the cursor
@@ -165,16 +167,15 @@ void percentageOutput(int i){
     tft.print("%");
 }
 
-
+// Prints the UV Analog value unto the first screen
 void printUV(){
 
     // Printing the string "UV Analog Value"
-    // drawing label "Percentage"
     drawingF(140, 30, 100, 100, 100, 2);
     tft.println("UV Analog: ");
 
     
-    //Printing out the sensor on the arduino for testing. 
+    //Printing out the sensor on the screen for testing. 
     tft.fillRoundRect(270,30, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
     tft.setCursor(270,30); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
@@ -182,7 +183,14 @@ void printUV(){
 
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
-    tft.print(sensorValue);
+    //tft.print(sensorValue);     //Uncomment this to see raw analog value
+
+    // Calculate the UV intensity (microWatt/cm^2) value using the calibration curve.
+    // Calibration Curve, First Iteration: 5.69x - 2.75. 
+    // Calibration Curve, Second Iteration: 6.38x + 0.18 after changing with fresh batteries. 
+    int calibrationCurveValue = (6.38*sensorValue) + 0.18;
+    tft.print(calibrationCurveValue);
+    Serial.print("UVANALOGCALIBRATION:");Serial.println(calibrationCurveValue);  //Uncomment this to see microWatt/cm^2 value
     
 }
 
@@ -288,29 +296,13 @@ void graphUV(){
   
 }
 
+// Like the name, reprints the first screen if the user is on the second screen.
 void rePrintFirstScreen()
 {
-  mode = 1;
+  mode = 1; // Change screenSelect to 1, symbolizing that you are now on the first screen. 
   // Turn on backlight
   pinMode(TFT_LED, OUTPUT);
   digitalWrite(TFT_LED, HIGH);
-
-  /*
-  // Setting up coordinates.
-  for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
-  {
-    if (dummyVariable == 0)
-      coordinatesX[dummyVariable] += divisionSize;
-    else
-      coordinatesX[dummyVariable] += divisionSize*(dummyVariable+1);
-  }
-  
-  for (int dummyVariable = 0 ; dummyVariable < numOfPoints ; dummyVariable++)
-  {
-    coordinatesY[dummyVariable] = 180; //Defaulting to this value for now. 
-    
-  }
-  */
    
   tft.setRotation(3);
   tft.fillScreen(tft.color565(0, 0, 0));
@@ -349,11 +341,14 @@ void rePrintFirstScreen()
 }
 
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Second screen functions
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                         Second Screen functions                                             //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+// Prints the second screen if the user is on the first screen.
 void printSecondScreen()
 {
   mode = 2; // Change screenSelect to 2, symbolizing that you are now on the second screen. 
@@ -378,7 +373,7 @@ void printSecondScreen()
   tft.println("UV Analog: ");
 }
 
-
+// Print out UV analog value unto the second screen.
 void printUV_SECONDSCREEN(){
     //Printing out the sensor on the arduino for testing. 
     tft.fillRoundRect(135,65, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
@@ -393,6 +388,7 @@ void printUV_SECONDSCREEN(){
     tft.println(sensor_mV);
 }
 
+//Print out the battery percentage unto the second screen. 
 void printPercentage_SECONDSCREEN(int i){
     tft.fillRoundRect(135,50, 50, 15, 0, tft.color565(0, 0, 0)); 
     tft.setCursor(135,50); // set the cursor
@@ -402,8 +398,8 @@ void printPercentage_SECONDSCREEN(int i){
     tft.print("%");
 }
 
-
-
+// Checks which 'screen' or 'mode' the user is currently on, and sends it to loop() and ButtonControl.cpp 
+// to determine what to print on the screen. 
 int checkScreenSelect()
 {
   return mode; // return the mode. 
@@ -413,14 +409,18 @@ int checkScreenSelect()
 /*
 3/22/21 Average framerate was around 360 milliseconds, resulting in a frame rate/ refresh rate of 
 This includes everything, including the calculation for all the sensors, graphing and bluetooth. 
+
 Without   bluetoothStatus(), percentageStatus(inc), intesityStatus(dataPoint) and uvSensorStatus(), thhe refresh rate
 is about 290 ms per frame, which is about 4 frames per second. 
+
 3/23/21 Around 2:18 AM
 Average framerate is around 330 ms per frame (or about 3 frames per second, if my math is right.), 
 when redrawing the line and shifting everything by 1 to the left. This is without bluetoothStatus(),
 percentageStatus(inc), intesityStatus(dataPoint) and uvSensorStatus(), 
+
 WITH these functions, its about 500 or 400 ms per frame, leading up to 2 frames per second in the best
 case scenario. 
+
 */
 void checkFrameTime(){
   
@@ -440,3 +440,132 @@ void checkFrameTime(){
   lastFrameTime = millis();
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Old graphUV.
+/*
+
+  
+  //////////////////////////////////////////////////
+  // The graph is divided are divided into 7 quadrants, both in the X and Y direction
+  //////////////////////////////////////////////////
+  
+  // Draw a black circle to get rid of the old one. 
+  tft.drawCircle(x1,yOne, 1, tft.color565(0, 0, 0));
+
+  // Recording point 2
+  //y2 = analogRead(A0);
+  read_y2();
+
+  // Dont draw line if point 1 is at location 7, and point 2 is at location 1. Reset the Graph
+  if (x2 <= 45 && x1 >= 315){
+    // dont draw the line. Reset the graph.
+    //tft.fillRect(  (originX+1),  (originY - 1),   (originX+sizeX), (originY-sizeY), tft.color565(0, 0, 0)   ); 2:25 PM
+    
+    Serial.println("Start erasing graph");
+    tft.fillRect(  (originX+1),  (originY - sizeY),   sizeX, sizeY, tft.color565(0, 0, 0)   ); 
+    Serial.println("Done erasing graph");
+    
+  }
+
+  // if not then draw the line. 
+  else{
+    tft.drawLine(x1, yOne, x2, y2, tft.color565(255, 255, 255));
+  }
+
+  // I've divided our width into 7 quadrants, if it surpasses it go back to the 1st quadrant
+  x1 += 45;
+  if ( x1 >= 360){
+    x1 = 45;
+  }
+  
+  // the next point
+  x2 += 45;
+  if ( x2 >= 360){
+    x2 = 45;
+  }
+
+  
+
+  
+  sensorValue = analogRead(A0);
+
+  if (sensorValue >= 620){
+    tft.drawCircle(x1,70, 1, tft.color565(255, 255, 255)); // Draw circle
+    yOne = 70;
+  }
+
+  else if (sensorValue >= 520){
+    tft.drawCircle(x1,90, 1, tft.color565(255, 255, 255));
+    yOne = 90;
+  }
+
+  else if (sensorValue >= 420){
+    tft.drawCircle(x1,115, 1, tft.color565(255, 255, 255));
+    yOne = 115;
+  }
+
+  else if (sensorValue >= 320){
+    tft.drawCircle(x1,135, 1, tft.color565(255, 255, 255));
+    yOne = 135;
+  }
+
+  else if (sensorValue >= 220){
+    tft.drawCircle(x1,160, 1, tft.color565(255, 255, 255));
+    yOne = 160;
+  }
+
+  else if (sensorValue >= 120){
+    tft.drawCircle(x1,185, 1, tft.color565(255, 255, 255));
+    yOne = 185;
+  }
+
+  else if (sensorValue >= 20){
+    tft.drawCircle(x1,210, 1, tft.color565(255, 255, 255));
+    yOne = 210;
+  }
+
+  else if (sensorValue >= 0){
+    tft.drawCircle(x1,215, 1, tft.color565(255, 255, 255));
+    yOne = 215;
+  }
+    
+  
+
+
+
+
+  
+ */
