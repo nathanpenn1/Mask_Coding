@@ -6,8 +6,11 @@
 #define K 3
 #define N (int)(1<<K)
 
+#define REF_3V3 A1
+#define K 3
+#define N (int)(1<<K)
+
 void uvSensorSetup(){
-  //Serial.begin(9600);
   pinMode(UVOUT, INPUT);
   pinMode(REF_3V3, INPUT);
 }

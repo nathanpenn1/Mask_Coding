@@ -1,6 +1,7 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_ILI9341.h"
 #include "ScreenDraw.h"
+#include "BluetoothSetSend.h"
 
 // Arduino Pinouts
 #define TFT_MISO D12
@@ -21,6 +22,7 @@
 
 // Variable to hold the UV sensor output.
 int sensorValue; 
+double sensor_mV;
 
 // Variables used for graphing the UV sensor value
 int x1 = 45;
@@ -381,7 +383,9 @@ void printUV_SECONDSCREEN(){
 
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
-    tft.print(sensorValue);
+    tft.println(sensorValue);
+    sensor_mV = convertFromADC();
+    tft.println(sensor_mV);
 }
 
 //Print out the battery percentage unto the second screen. 

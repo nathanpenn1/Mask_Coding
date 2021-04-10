@@ -40,17 +40,33 @@ void setup() {
 }
 
 void loop() {
+
   // Read and save desired information into variables
   int batteryPinVoltage = analogRead(A6); 
   int uvAnalogValue = analogRead(A0);
+
+  int batteryPinVoltage = analogRead(A6); // Read the voltage that the battery pack is sending.
+  int uvAnalogValue = analogRead(A0);
+
   
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
+
 
   // Calculate battery percentage and UV intensity, and send data via Bluetooth to the app.
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
   intensityStatus();
   uvSensorStatus(uvAnalogValue);
+
+  bluetoothStatus();
+  //percentageStatus(inc);
+  percentageStatus(batteryPercentage); // for when we have a battery percentage to report
+
+  intesityStatus(dataPoint);
+  uvSensorStatus(uvAnalogValue);
+
+  checkButton();
+
 
   // Checking if button is pressed. 
   // If tapped once, the screen will switch from screen 1 to screen 2
@@ -77,4 +93,5 @@ void loop() {
   
     
   delay(100); // Can be removed I think, to make the arduino processor work faster. 
+
 }

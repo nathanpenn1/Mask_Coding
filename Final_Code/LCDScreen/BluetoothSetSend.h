@@ -12,7 +12,11 @@ void bluetoothSetup();
 
 void printVal (char string[] , float data);
 
+
 double convertFromADC();
 double calculateUVIndex(double i);
+
+double convertFromADC ();
+
 
 #endif
