@@ -45,9 +45,6 @@ void loop() {
   int batteryPinVoltage = analogRead(A6); 
   int uvAnalogValue = analogRead(A0);
 
-  int batteryPinVoltage = analogRead(A6); // Read the voltage that the battery pack is sending.
-  int uvAnalogValue = analogRead(A0);
-
   
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
@@ -55,14 +52,14 @@ void loop() {
 
   // Calculate battery percentage and UV intensity, and send data via Bluetooth to the app.
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
-  intensityStatus();
+  //intesityStatus();
   uvSensorStatus(uvAnalogValue);
 
   bluetoothStatus();
   //percentageStatus(inc);
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
 
-  intesityStatus(dataPoint);
+  intensityStatus(dataPoint);
   uvSensorStatus(uvAnalogValue);
 
   checkButton();

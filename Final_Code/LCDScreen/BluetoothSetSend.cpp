@@ -38,7 +38,7 @@ void bluetoothStatus(){
 
 }
 
-void intesityStatus(int dataPoint){
+void intensityStatus(int dataPoint){
   // read the current percentage value
   int percentage = analogRead(A0);
 
@@ -120,4 +120,3 @@ void printVal (char string[] , float data){
   Serial.println(string);
   Serial.print(data);
 }
-
