@@ -100,7 +100,9 @@ void checkButton()
     Serial.print(timePressed_milliseconds);
     Serial.print(" milliseconds. Turning off the system");
     buttonLongPressed = 0;
+
     digitalWrite(ledPIN, LOW); // Turn off the UV LED's in the mask. 
+
     digitalWrite(turnOffSystemPin, LOW); // Turn off the system. 
   }
 
