@@ -4,6 +4,7 @@
 
 // Arduino Pinouts
 #define oneButtonPIN D2 
+#define ledPIN D3
 #define turnOffSystemPin D4 
 
 // Variables that will be used to determine which event to do
@@ -27,7 +28,9 @@ void buttonSetup()
   // Setting up turnOffSystemPin to turn on. With Brandon's circuit it should latch
   // the system to stay on. To turn off the system, set turnOffSystemPin to off using the logic found in this .cpp file
   pinMode(turnOffSystemPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
   digitalWrite(turnOffSystemPin, HIGH); // Set pin to high, so when button is pushed and turns on the system, it latches the mosfet thing and stays on
+  digitalWrite(ledPin, HIGH); // Set pin to high, to turn on the UV LED's inside the mask. 
 
   oneButton.begin(); // Initialize the button
   oneButton.onPressed(oneTap); // Set up the button for a single tap/press
@@ -143,4 +146,3 @@ void checkButton()
 
    
 } // end of checkButton();
-
