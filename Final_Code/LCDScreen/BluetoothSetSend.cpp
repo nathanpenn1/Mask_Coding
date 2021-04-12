@@ -38,21 +38,6 @@ void bluetoothStatus(){
 
 }
 
-void intensityStatus(int dataPoint){
-  // read the current percentage value
-  int percentage = analogRead(A0);
-
-  // has the value changed since the last read
-  boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
-
-  //if(intestyChanged){
-    intesityCharacteristic.writeValue(percentage);
-    //Serial.print("intesity changed to : ");////
-    //Serial.print(dataPoint);////
-    //Serial.println("");////
-  //}
-
-}
 
 void percentageStatus(int inc){
 
@@ -101,7 +86,6 @@ double calculateUVIndex(double i){
   Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.print("   ");  // Print to serial monitor for testing. 
 }
 
-
 void intensityStatus(){
   // read the current percentage value
   //int percentage = analogRead(A0);
@@ -120,3 +104,28 @@ void printVal (char string[] , float data){
   Serial.println(string);
   Serial.print(data);
 }
+
+////////////////////////////
+// Old code below
+///////////////////////////
+
+/*
+
+void intesityStatus(int dataPoint){
+  // read the current percentage value
+  int percentage = analogRead(A0);
+
+  // has the value changed since the last read
+  boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
+
+  //if(intestyChanged){
+    intesityCharacteristic.writeValue(percentage);
+    //Serial.print("intesity changed to : ");////
+    //Serial.print(dataPoint);////
+    //Serial.println("");////
+  //}
+
+}
+ 
+ 
+ */

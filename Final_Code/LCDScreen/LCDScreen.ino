@@ -59,7 +59,7 @@ void loop() {
   //percentageStatus(inc);
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
 
-  intensityStatus(dataPoint);
+  intensityStatus();
   uvSensorStatus(uvAnalogValue);
 
   checkButton();
