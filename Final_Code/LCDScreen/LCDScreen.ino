@@ -45,8 +45,7 @@ void loop() {
   int batteryPinVoltage = analogRead(A6); 
   int uvAnalogValue = analogRead(A0);
 
-  int batteryPinVoltage = analogRead(A6); // Read the voltage that the battery pack is sending.
-  int uvAnalogValue = analogRead(A0);
+
 
   
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
@@ -62,7 +61,7 @@ void loop() {
   //percentageStatus(inc);
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
 
-  intesityStatus(dataPoint);
+  //intesityStatus(dataPoint);
   uvSensorStatus(uvAnalogValue);
 
   checkButton();
