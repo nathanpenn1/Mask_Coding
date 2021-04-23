@@ -21,8 +21,8 @@
 
 
 // Test variables
-int inc = 0;
-int dataPoint = 0;
+int inc = 0;           // Use to test battery percentage without battery
+int dataPoint = 0;     // Use to test UV graph in the app without using a UV sensor
 
 // Battery Percentage Variables
 int batteryPercentage = 0;
@@ -46,8 +46,6 @@ void loop() {
   int uvAnalogValue = analogRead(A0);
 
 
-
-  
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
 
@@ -58,13 +56,13 @@ void loop() {
   uvSensorStatus(uvAnalogValue);
 
   bluetoothStatus();
-  //percentageStatus(inc);
+  //percentageStatus(inc); // Use this when testing battery percentage without an actual battery.
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
 
-  //intesityStatus(dataPoint);
+  
   uvSensorStatus(uvAnalogValue);
 
-  checkButton();
+  
 
 
   // Checking if button is pressed. 
@@ -83,11 +81,13 @@ void loop() {
     //printPercentage_SECONDSCREEN(i);
   }
 
-  // Testing purposes without access to UV sensor
+  /*
+  // Testing purposes without access to UV sensor. Uncomment if not using UV sensor to test if works.
   if (dataPoint < 50)
     dataPoint = dataPoint + 1;
   else
     dataPoint = 0;
+  */
 
   
     

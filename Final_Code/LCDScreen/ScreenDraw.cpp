@@ -184,6 +184,7 @@ void printUV(){
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
     //tft.print(sensorValue);     //Uncomment this to see raw analog value
+    Serial.print("RAWANALOGVALUE:");Serial.println(sensorValue);  //Uncomment this to see analog value from sensor. 
 
     // Calculate the UV intensity (microWatt/cm^2) value using the calibration curve.
     // Calibration Curve, First Iteration: 5.69x - 2.75. 
