@@ -56,6 +56,8 @@ void loop() {
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
   intensityStatus();
   uvSensorStatus(uvAnalogValue);
+  
+  buttonOnOff();
 
   bluetoothStatus();
   ////////////////////////////////////////percentageStatus(inc);

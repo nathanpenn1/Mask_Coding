@@ -130,9 +130,9 @@ void printVal (char string[] , float data){
 void buttonOnOff(){
   if(buttonOnOffChar.written()){
     if(buttonOnOffChar.value() == 1){
-      digitalWrite(D4, HIGH);
+      digitalWrite(D3, HIGH);
     } else {
-      digitalWrite(D4, LOW);
+      digitalWrite(D3, LOW);
     }
   }
 }
