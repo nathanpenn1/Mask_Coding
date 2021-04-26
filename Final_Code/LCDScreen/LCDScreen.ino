@@ -58,10 +58,10 @@ void loop() {
   uvSensorStatus(uvAnalogValue);
 
   bluetoothStatus();
-  //percentageStatus(inc);
+  ////////////////////////////////////////percentageStatus(inc);
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
 
-  //intesityStatus(dataPoint);
+  ///////////////////////////////////////intesityStatus(dataPoint);
   uvSensorStatus(uvAnalogValue);
 
   checkButton();
