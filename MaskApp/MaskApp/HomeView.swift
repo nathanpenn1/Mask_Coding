@@ -93,16 +93,25 @@ struct HomeView: View {
                             }
                         }) {
                             Image(systemName: "power")
+                                .padding(10)
                                 .font(.system(size: 40, weight: .bold))
-                                .foregroundColor(Color("TabBarColor"))
-                                //.offset(y: -60)
+                                .foregroundColor(Color("ButtonOnOffInside"))
+                                .background(Color("ButtonOnOffBackground"))
+                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                                //.border(Color.purple, width: 5)
+                                //.cornerRadius(10)
+                                
                         }
-                        .frame(width: 100, height: 100)
+                        //.frame(width: 100, height: 100)
                         .offset(y: -60)
+                        .disabled(bleManager.strOut != "Ready!")
                     }
                     
+//                    Spacer()
+//                    Text("Here: ")
+//                    Text(bleManager.strOut)
+                        
                     Spacer()
-                    
                 }
             }
         }
@@ -113,7 +122,7 @@ struct HomeView_Previews: PreviewProvider {
         Group {
             HomeView(bleManager: BLEManager())
                 .previewDevice(/*@START_MENU_TOKEN@*/"iPhone 11"/*@END_MENU_TOKEN@*/)
-                .preferredColorScheme(.light)
+                .preferredColorScheme(.dark)
         }
     }
 }

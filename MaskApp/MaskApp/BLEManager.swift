@@ -23,13 +23,14 @@ struct Peripheral: Identifiable {
 class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var myCentral: CBCentralManager!
     var nanoPeripheral: CBPeripheral!
-    var button: CBCharacteristic?
+    var button: CBCharacteristic!
     @Published var isSwitchedOn = false
     @Published var peripherals = [Peripheral]()
     @Published var percentageVal = 0
     @Published var yVal: [Double] = []
     @Published var xVal = 0
     @Published var buttonOnOff = 0
+    @Published var strOut = " "
     var inc = 0
     
     override init(){
@@ -120,6 +121,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
             
         case buttonOnOfCBUUID:
             print(characteristic.value![0])
+            strOut = "Ready!"
             
           default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
