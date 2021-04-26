@@ -12,16 +12,14 @@
 		AA206AA225D763CB008C7130 /* MaskApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA206AA025D763CB008C7130 /* MaskApp.xcdatamodeld */; };
 		AA206AA425D763CD008C7130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA206AA325D763CD008C7130 /* Assets.xcassets */; };
 		AA206AA725D763CD008C7130 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA206AA625D763CD008C7130 /* Preview Assets.xcassets */; };
-		AA206AAA25D763CD008C7130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA206AA825D763CD008C7130 /* LaunchScreen.storyboard */; };
 		AA206AB525D763CE008C7130 /* MaskAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206AB425D763CE008C7130 /* MaskAppTests.swift */; };
 		AA206AC025D763CE008C7130 /* MaskAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206ABF25D763CE008C7130 /* MaskAppUITests.swift */; };
 		AA206AD125D76501008C7130 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA206AD025D76501008C7130 /* BLEManager.swift */; };
+		AA7AB56B263658B7008CBD54 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = AA7AB56A263658B7008CBD54 /* SwiftUICharts */; };
 		AA8299AE2613BDFD00AD36EA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299AD2613BDFD00AD36EA /* MainView.swift */; };
 		AA8299B22613BF3800AD36EA /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299B12613BF3800AD36EA /* BatteryView.swift */; };
 		AA8299B62613BF9F00AD36EA /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299B52613BF9F00AD36EA /* GraphView.swift */; };
 		AA8299BC2613DAB100AD36EA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8299BB2613DAB100AD36EA /* HomeView.swift */; };
-		AAE6AC8725E09A5E007984B2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = AAE6AC8625E09A5E007984B2 /* SwiftUICharts */; };
-		AAE6ACCE25E5C417007984B2 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = AAE6ACCD25E5C417007984B2 /* Charts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +59,6 @@
 		AA206AA125D763CB008C7130 /* MaskApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MaskApp.xcdatamodel; sourceTree = "<group>"; };
 		AA206AA325D763CD008C7130 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA206AA625D763CD008C7130 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AA206AA925D763CD008C7130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA206AAB25D763CD008C7130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA206AB025D763CE008C7130 /* MaskAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaskAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA206AB425D763CE008C7130 /* MaskAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskAppTests.swift; sourceTree = "<group>"; };
@@ -81,8 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE6AC8725E09A5E007984B2 /* SwiftUICharts in Frameworks */,
-				AAE6ACCE25E5C417007984B2 /* Charts in Frameworks */,
+				AA7AB56B263658B7008CBD54 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +131,6 @@
 				AA8299BB2613DAB100AD36EA /* HomeView.swift */,
 				AA206AD025D76501008C7130 /* BLEManager.swift */,
 				AA206AA325D763CD008C7130 /* Assets.xcassets */,
-				AA206AA825D763CD008C7130 /* LaunchScreen.storyboard */,
 				AA206AAB25D763CD008C7130 /* Info.plist */,
 				AA206AA025D763CB008C7130 /* MaskApp.xcdatamodeld */,
 				AA206AA525D763CD008C7130 /* Preview Content */,
@@ -194,8 +189,7 @@
 			);
 			name = MaskApp;
 			packageProductDependencies = (
-				AAE6AC8625E09A5E007984B2 /* SwiftUICharts */,
-				AAE6ACCD25E5C417007984B2 /* Charts */,
+				AA7AB56A263658B7008CBD54 /* SwiftUICharts */,
 			);
 			productName = MaskApp;
 			productReference = AA206A9725D763CA008C7130 /* MaskApp.app */;
@@ -269,8 +263,7 @@
 			);
 			mainGroup = AA206A8E25D763CA008C7130;
 			packageReferences = (
-				AAE6AC8525E09A5E007984B2 /* XCRemoteSwiftPackageReference "ChartView" */,
-				AAE6ACCC25E5C417007984B2 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
+				AA7AB569263658B7008CBD54 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = AA206A9825D763CA008C7130 /* Products */;
 			projectDirPath = "";
@@ -288,7 +281,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA206AAA25D763CD008C7130 /* LaunchScreen.storyboard in Resources */,
 				AA206AA725D763CD008C7130 /* Preview Assets.xcassets in Resources */,
 				AA206AA425D763CD008C7130 /* Assets.xcassets in Resources */,
 			);
@@ -356,17 +348,6 @@
 			targetProxy = AA206ABC25D763CE008C7130 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		AA206AA825D763CD008C7130 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AA206AA925D763CD008C7130 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		AA206AC225D763CE008C7130 /* Debug */ = {
@@ -653,34 +634,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AAE6AC8525E09A5E007984B2 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		AA7AB569263658B7008CBD54 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
+			repositoryURL = "https://github.com/dnik4ov97/SwiftUICharts.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.4;
-			};
-		};
-		AAE6ACCC25E5C417007984B2 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/spacenation/swiftui-charts.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.5.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AAE6AC8625E09A5E007984B2 /* SwiftUICharts */ = {
+		AA7AB56A263658B7008CBD54 /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AAE6AC8525E09A5E007984B2 /* XCRemoteSwiftPackageReference "ChartView" */;
+			package = AA7AB569263658B7008CBD54 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
-		};
-		AAE6ACCD25E5C417007984B2 /* Charts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAE6ACCC25E5C417007984B2 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
-			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
 

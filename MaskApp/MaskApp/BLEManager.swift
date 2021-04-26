@@ -8,10 +8,11 @@
 import Foundation
 import CoreBluetooth
 
-let nanoServiceCBUUID = CBUUID(string: "0x180C")
+let nanoServiceCBUUID = CBUUID(string: "180C")
 let percentageCBUUID = CBUUID(string: "2A57")
 let xvalueCBUUID = CBUUID(string: "2A59")
 let yvalueCBUUID = CBUUID(string: "2A58")
+let buttonOnOfCBUUID = CBUUID(string: "111E")
 
 struct Peripheral: Identifiable {
     let id: Int
@@ -22,11 +23,13 @@ struct Peripheral: Identifiable {
 class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var myCentral: CBCentralManager!
     var nanoPeripheral: CBPeripheral!
+    var button: CBCharacteristic?
     @Published var isSwitchedOn = false
     @Published var peripherals = [Peripheral]()
     @Published var percentageVal = 0
     @Published var yVal: [Double] = []
     @Published var xVal = 0
+    @Published var buttonOnOff = 0
     var inc = 0
     
     override init(){
@@ -78,6 +81,13 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
                 print("\(characteristic.uuid): properties contains .notify")
                 peripheral.setNotifyValue(true, for: characteristic)
             }
+            if characteristic.properties.contains(.write){
+                print("\(characteristic.uuid): properties contains .write")
+                peripheral.setNotifyValue(true, for: characteristic)
+            }
+            if characteristic.uuid == buttonOnOfCBUUID {
+                button = characteristic
+            }
         }
     }
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -108,8 +118,25 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
                 yVal.append(Double(value))
             }
             
+        case buttonOnOfCBUUID:
+            print(characteristic.value![0])
+            
           default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
+    }
+    
+    func write(value: Data, characteristic: CBCharacteristic) {
+        //self.connectedPeripheral?.writeValue(value, for: characteristic, type: .withResponse)
+        // Check if it has the write property
+        //if characteristic.properties.contains(.writeWithoutResponse) && nanoPeripheral != nil {
+
+            //nanoPeripheral.writeValue(value, for: characteristic, type: .withoutResponse)
+        //}
+        nanoPeripheral.writeValue(value, for: characteristic, type: .withResponse)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("peripheral: didWriteValueFor")
     }
 }

@@ -17,24 +17,16 @@ struct HomeView: View {
                 VStack {
                     
                     Spacer()
-                    VStack {
-                        Text("A BETTER BREATH")
-                            .font(.system(size: 30))
-                            .frame(maxWidth: .infinity, maxHeight: 50, alignment: .center)
-                            .foregroundColor(Color("HomeBoxText"))
-                        
-                        Text("WITH UV TECHNOLOGY")
-                            .font(.system(size: 30))
-                            .frame(maxWidth: .infinity, maxHeight: 50, alignment: .center)
-                            .foregroundColor(Color("HomeBoxText"))
-                        
-                        Text("EST. 2020")
-                            .font(.system(size: 25))
-                            .frame(maxWidth: .infinity, maxHeight: 50, alignment: .center)
-                            .foregroundColor(Color("HomeBoxText"))
+                    
+                    GeometryReader { geo in
+                        Image("BlackImage")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geo.size.width)
                     }
-                    .offset(y: -80)
-                    Spacer()
+                    .offset(y: -60)
+                    
+                   Spacer()
                     
                     HStack() {
                         
@@ -83,16 +75,31 @@ struct HomeView: View {
                         }
                         
                         Spacer()
-                    }.offset(y: -30)
+                    }.offset(y: -100)
                     
-    //                if bleManager.isSwitchedOn {
-    //                    Text("Bluetooth is switched on")
-    //                        .foregroundColor(.green)
-    //                }
-    //                else {
-    //                    Text("Bluetooth is NOT switched on")
-    //                        .foregroundColor(.red)
-    //                }
+                    Spacer()
+                    
+                    VStack {
+                        Button(action: {
+                            if(bleManager.buttonOnOff == 0) {
+                                print("1")
+                                bleManager.buttonOnOff = 1
+                                bleManager.write(value: Data([UInt8(1)]) , characteristic: bleManager.button!)
+                            }
+                            else {
+                                print("0")
+                                bleManager.buttonOnOff = 0
+                                bleManager.write(value: Data([UInt8(0)]) , characteristic: bleManager.button!)
+                            }
+                        }) {
+                            Image(systemName: "power")
+                                .font(.system(size: 40, weight: .bold))
+                                .foregroundColor(Color("TabBarColor"))
+                                //.offset(y: -60)
+                        }
+                        .frame(width: 100, height: 100)
+                        .offset(y: -60)
+                    }
                     
                     Spacer()
                     
@@ -103,7 +110,10 @@ struct HomeView: View {
 }
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(bleManager: BLEManager())
-            .preferredColorScheme(.dark)
+        Group {
+            HomeView(bleManager: BLEManager())
+                .previewDevice(/*@START_MENU_TOKEN@*/"iPhone 11"/*@END_MENU_TOKEN@*/)
+                .preferredColorScheme(.light)
+        }
     }
 }

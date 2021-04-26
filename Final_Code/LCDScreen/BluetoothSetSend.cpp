@@ -9,6 +9,8 @@ BLEIntCharacteristic percentageCharacteristic("2A57", BLERead | BLENotify);
 BLEIntCharacteristic intesityCharacteristic("2A58", BLERead | BLENotify);
 // creat time chracteristic and allow remote device to get notifications
 BLEIntCharacteristic timeChracteristic("2A59", BLERead | BLENotify);
+// creat buttonOnOff chracteristic and allow remote device to get notifications
+BLEIntCharacteristic buttonOnOffChar("111E", BLERead | BLENotify | BLEWrite);
 
 void bluetoothSetup(){
   Serial.begin(9600); // initialize serial communication
@@ -22,12 +24,15 @@ void bluetoothSetup(){
   uvMaskService.addCharacteristic(percentageCharacteristic); // Add percentage Characteristic
   uvMaskService.addCharacteristic(intesityCharacteristic);  // Add intesity Characteristic
   uvMaskService.addCharacteristic(timeChracteristic);  // Add time Characteristic
+  uvMaskService.addCharacteristic(buttonOnOffChar);  // Add buttonOnOff Characteristic
+  
   
   BLE.addService(uvMaskService); // Add service
   
   percentageCharacteristic.writeValue(0);
   intesityCharacteristic.writeValue(0);
   timeChracteristic.writeValue(0);
+  buttonOnOffChar.writeValue(0);
   
   BLE.advertise();  // Start advertising
 
@@ -38,21 +43,21 @@ void bluetoothStatus(){
 
 }
 
-void intesityStatus(int dataPoint){
-  // read the current percentage value
-  int percentage = analogRead(A0);
+// void intesityStatus(int dataPoint){
+//   // read the current percentage value
+//   int percentage = analogRead(A0);
 
-  // has the value changed since the last read
-  boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
+//   // has the value changed since the last read
+//   boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
 
-  //if(intestyChanged){
-    intesityCharacteristic.writeValue(percentage);
-    //Serial.print("intesity changed to : ");////
-    //Serial.print(dataPoint);////
-    //Serial.println("");////
-  //}
+//   //if(intestyChanged){
+//     intesityCharacteristic.writeValue(percentage);
+//     //Serial.print("intesity changed to : ");////
+//     //Serial.print(dataPoint);////
+//     //Serial.println("");////
+//   //}
 
-}
+// }
 
 void percentageStatus(int inc){
 
@@ -120,4 +125,21 @@ void printVal (char string[] , float data){
   Serial.println(string);
   Serial.print(data);
 }
+
+
+void buttonOnOff(){
+  if(buttonOnOffChar.written()){
+    if(buttonOnOffChar.value() == 1){
+      digitalWrite(D4, HIGH);
+    } else {
+      digitalWrite(D4, LOW);
+    }
+  }
+}
+
+
+
+
+
+
 
