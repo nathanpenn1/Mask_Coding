@@ -18,5 +18,7 @@ double calculateUVIndex(double i);
 
 double convertFromADC ();
 
+void buttonOnOff();
+
 
 #endif

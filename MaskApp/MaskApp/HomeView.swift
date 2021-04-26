@@ -95,22 +95,15 @@ struct HomeView: View {
                             Image(systemName: "power")
                                 .padding(10)
                                 .font(.system(size: 40, weight: .bold))
-                                .foregroundColor(Color("ButtonOnOffInside"))
+                                .foregroundColor((bleManager.strOut != "Ready!") ? Color.gray : Color.white)
                                 .background(Color("ButtonOnOffBackground"))
                                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                //.border(Color.purple, width: 5)
-                                //.cornerRadius(10)
                                 
                         }
                         //.frame(width: 100, height: 100)
                         .offset(y: -60)
                         .disabled(bleManager.strOut != "Ready!")
                     }
-                    
-//                    Spacer()
-//                    Text("Here: ")
-//                    Text(bleManager.strOut)
-                        
                     Spacer()
                 }
             }
