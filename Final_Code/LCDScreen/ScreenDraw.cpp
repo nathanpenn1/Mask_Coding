@@ -1,7 +1,7 @@
-#include "Adafruit_GFX.h"
-#include "Adafruit_ILI9341.h"
-#include "ScreenDraw.h"
-#include "BluetoothSetSend.h"
+#include "Adafruit_GFX.h"       //
+#include "Adafruit_ILI9341.h"   // 
+#include "ScreenDraw.h"         //
+#include "BluetoothSetSend.h"   //
 
 // Arduino Pinouts
 #define TFT_MISO D12
@@ -66,7 +66,9 @@ void screenSetup(){
   // Title (UV Mask)
   drawingF(5, 15, 80, 149, 201, 3);
   tft.println("UV MASK");
-  
+
+  // Removing from first screen and putting into the second screen. 
+  /*
   // drawing label "Percentage"
   drawingF(140, 15, 100, 100, 100, 2);
   tft.println("Percentage: ");
@@ -74,6 +76,7 @@ void screenSetup(){
   // drawing label "UV Intesity Graph"
   drawingF(60, 50, 100, 100, 100, 2);
   tft.println("UV Intensity Graph");
+  */
   
   // draw the two axis
   tft.drawLine(originX, originY, (originX + sizeX), originY,tft.color565(255, 255, 255));

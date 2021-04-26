@@ -75,7 +75,7 @@ void loop() {
   // Decide which screenDraw functions to use based on which screen the user is on.
   screenSelect = checkScreenSelect();
   if (screenSelect == 1){
-    printUV();
+    //printUV(); // Removing from first screen and putting into the second screen. 
     graphUV();
   }
   else if (screenSelect == 2){
