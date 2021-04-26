@@ -27,6 +27,6 @@ struct GraphView: View {
 struct GraphView_Previews: PreviewProvider {
     static var previews: some View {
         GraphView(bleManager: BLEManager())
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(.light)
     }
 }

@@ -52,8 +52,17 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
-            .preferredColorScheme(.dark)
+        Group {
+            MainView()
+                .previewDevice("iPhone 8")
+                .preferredColorScheme(.dark)
+            MainView()
+                .previewDevice("iPhone 12")
+                .preferredColorScheme(.dark)
+            MainView()
+                .previewDevice("iPhone 12 Pro Max")
+                .preferredColorScheme(.light)
+        }
             
     }
 }
