@@ -30,7 +30,7 @@ void bluetoothSetup(){
   BLE.addService(uvMaskService); // Add service
   
   percentageCharacteristic.writeValue(0);
-  intesityCharacteristic.writeValue(0);
+  intesityCharacteristic.writeValue(500);
   timeChracteristic.writeValue(0);
   buttonOnOffChar.writeValue(0);
   
@@ -70,7 +70,7 @@ void percentageStatus(int inc){
     percentageCharacteristic.writeValue(inc);
     if (checking == 1)
     {
-      percentageOutput(inc);
+      //percentageOutput(inc); // Removing from first screen and placing into the second screen.
     }
 
     else if (checking == 2)
@@ -103,7 +103,7 @@ double convertFromADC (){
 double calculateUVIndex(double i){
   double mV = convertFromADC();
   double uv_index = (mV / 1024) / 0.1;
-  Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.print("   ");  // Print to serial monitor for testing. 
+  //Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.println("   ");  // Print to serial monitor for testing. 
 }
 
 
@@ -130,16 +130,9 @@ void printVal (char string[] , float data){
 void buttonOnOff(){
   if(buttonOnOffChar.written()){
     if(buttonOnOffChar.value() == 1){
-      digitalWrite(D4, HIGH);
+      digitalWrite(D5, HIGH);
     } else {
-      digitalWrite(D4, LOW);
+      digitalWrite(D5, LOW);
     }
   }
 }
-
-
-
-
-
-
-

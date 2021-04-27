@@ -72,11 +72,12 @@ void screenSetup(){
   // drawing label "Percentage"
   drawingF(140, 15, 100, 100, 100, 2);
   tft.println("Percentage: ");
+  */
   
   // drawing label "UV Intesity Graph"
   drawingF(60, 50, 100, 100, 100, 2);
   tft.println("UV Intensity Graph");
-  */
+  
   
   // draw the two axis
   tft.drawLine(originX, originY, (originX + sizeX), originY,tft.color565(255, 255, 255));
@@ -186,15 +187,25 @@ void printUV(){
 
     // Print out the current sensor value into the screen. 
     sensorValue = analogRead(A0);
-    //tft.print(sensorValue);     //Uncomment this to see raw analog value
+    tft.print(sensorValue);     //Uncomment this to see raw analog value
+    Serial.print("RAWANALOG:");Serial.println(sensorValue);  //Uncomment this to see microWatt/cm^2 value
 
+/*
     // Calculate the UV intensity (microWatt/cm^2) value using the calibration curve.
     // Calibration Curve, First Iteration: 5.69x - 2.75. 
     // Calibration Curve, Second Iteration: 6.38x + 0.18 after changing with fresh batteries. 
     int calibrationCurveValue = (6.38*sensorValue) + 0.18;
     tft.print(calibrationCurveValue);
     Serial.print("UVANALOGCALIBRATION:");Serial.println(calibrationCurveValue);  //Uncomment this to see microWatt/cm^2 value
+*/
     
+}
+
+void serialPrintUV()
+{
+  // Print out the current sensor value into the screen. 
+    sensorValue = analogRead(A0);
+    Serial.print("RAWANALOG_spuv:");Serial.println(sensorValue);  //Uncomment this to see microWatt/cm^2 value
 }
 
 // Handles the algorithm for placing the data point into the graph, and making a line between the points. 

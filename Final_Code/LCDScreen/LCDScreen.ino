@@ -45,8 +45,16 @@ void loop() {
   int batteryPinVoltage = analogRead(A6); 
   int uvAnalogValue = analogRead(A0);
 
-
-
+  buttonOnOff();
+/*
+  if(buttonOnOffChar.written()){
+    if(buttonOnOffChar.value() == 1){
+      digitalWrite(D5, HIGH);
+    } else {
+      digitalWrite(D5, LOW);
+    }
+  }
+*/
   
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
@@ -54,15 +62,15 @@ void loop() {
 
   // Calculate battery percentage and UV intensity, and send data via Bluetooth to the app.
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
-  intensityStatus();
-  uvSensorStatus(uvAnalogValue);
+  //intensityStatus();
+  //uvSensorStatus(uvAnalogValue);
 
   bluetoothStatus();
   ////////////////////////////////////////percentageStatus(inc);
   percentageStatus(batteryPercentage); // for when we have a battery percentage to report
 
   ///////////////////////////////////////intesityStatus(dataPoint);
-  uvSensorStatus(uvAnalogValue);
+  //uvSensorStatus(uvAnalogValue);
 
   checkButton();
 
@@ -76,6 +84,7 @@ void loop() {
   screenSelect = checkScreenSelect();
   if (screenSelect == 1){
     //printUV(); // Removing from first screen and putting into the second screen. 
+    serialPrintUV();
     graphUV();
   }
   else if (screenSelect == 2){
