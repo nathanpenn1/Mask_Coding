@@ -385,11 +385,11 @@ void printSecondScreen()
   
   // drawing label "UV Analog"
   drawingF(5, 65, 100, 100, 100, 2);
-  tft.println("Raw UV Analog: ");
+  tft.println("UV Analog: ");
 
   // drawing label "ADC voltage"
   drawingF(5, 80, 100, 100, 100, 2);
-  tft.println("ADC voltage: ");
+  tft.println("ADC Voltage: ");
 
   // drawing label "CC value"
   // cc = calibration curve 
@@ -411,7 +411,7 @@ void printUV_SECONDSCREEN(){
 
   
     // Draw rectangle to reset the value of the raw analog value.   (1)
-    tft.fillRoundRect(135,65, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.fillRoundRect(135,65, 70, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
     tft.setCursor(135,65); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
     tft.setTextSize(2);
@@ -421,8 +421,8 @@ void printUV_SECONDSCREEN(){
     tft.println(sensorValue);
 
     // Draw rectangle to reset the value of the adc voltage      (2)
-    tft.fillRoundRect(135,80, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
-    tft.setCursor(135,80); // set the cursor
+    tft.fillRoundRect(137,80, 70, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(137,80); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
     tft.setTextSize(2);
 
@@ -432,8 +432,8 @@ void printUV_SECONDSCREEN(){
 
 
     // Draw rectangle to reset the value of cc value     (3)
-    tft.fillRoundRect(135,95, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
-    tft.setCursor(135,95); // set the cursor
+    tft.fillRoundRect(137,95, 70, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(137,95); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
     tft.setTextSize(2);
 
