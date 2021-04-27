@@ -101,9 +101,12 @@ void intensityStatus(){
   double averageV = AverageFilter(mV);
 
   //////////////////////// Calibration Curve Equation //////////////////////////
+  // Calibration Curve, Third Iteration USING 265nm DIODES: 3.03x + 335
+  double calibrationCurveValue = (3.03*averageV) + 335;
+  double sendToApp = (3.03*mV) + 335;
 
-
-  intesityCharacteristic.writeValue(averageV);
+  // Sending raw analog voltage after sending it through the calibration curve.
+  intesityCharacteristic.writeValue(sendToApp);
 }
 
 void printVal (char string[] , float data){

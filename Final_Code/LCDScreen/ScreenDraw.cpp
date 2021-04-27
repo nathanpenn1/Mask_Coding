@@ -194,7 +194,8 @@ void printUV(){
     // Calculate the UV intensity (microWatt/cm^2) value using the calibration curve.
     // Calibration Curve, First Iteration: 5.69x - 2.75. 
     // Calibration Curve, Second Iteration: 6.38x + 0.18 after changing with fresh batteries. 
-    int calibrationCurveValue = (6.38*sensorValue) + 0.18;
+    // Calibration Curve, Third Iteration USING 265nm DIODES: 3.03x + 335
+    int calibrationCurveValue = (3.03*sensorValue) + 335;
     tft.print(calibrationCurveValue);
     Serial.print("UVANALOGCALIBRATION:");Serial.println(calibrationCurveValue);  //Uncomment this to see microWatt/cm^2 value
 */
@@ -384,22 +385,61 @@ void printSecondScreen()
   
   // drawing label "UV Analog"
   drawingF(5, 65, 100, 100, 100, 2);
-  tft.println("UV Analog: ");
+  tft.println("Raw UV Analog: ");
+
+  // drawing label "ADC voltage"
+  drawingF(5, 80, 100, 100, 100, 2);
+  tft.println("ADC voltage: ");
+
+  // drawing label "CC value"
+  // cc = calibration curve 
+  drawingF(5, 95, 100, 100, 100, 2);
+  tft.println("CC Value: ");
+  
 }
 
-// Print out UV analog value unto the second screen.
+/*
+    
+    This function prints out these 3 values:
+
+    1: raw analog
+    2: converted adc value
+    3: calibration curve 
+
+*/
 void printUV_SECONDSCREEN(){
-    //Printing out the sensor on the arduino for testing. 
+
+  
+    // Draw rectangle to reset the value of the raw analog value.   (1)
     tft.fillRoundRect(135,65, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
     tft.setCursor(135,65); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
     tft.setTextSize(2);
 
-    // Print out the current sensor value into the screen. 
+    // Print out the raw analog valueinto the screen.               (1)
     sensorValue = analogRead(A0);
     tft.println(sensorValue);
-    sensor_mV = convertFromADC();
+
+    // Draw rectangle to reset the value of the adc voltage      (2)
+    tft.fillRoundRect(135,80, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(135,80); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+
+    // Print out the ADC value into the screen.                  (2);
+    sensor_mV = convertFromADC();                                
     tft.println(sensor_mV);
+
+
+    // Draw rectangle to reset the value of cc value     (3)
+    tft.fillRoundRect(135,95, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(135,95); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+
+    // Apply calibration curve and print out into the screen  (3)
+    double calibrationCurveValue = (3.03*sensor_mV) + 335;
+    tft.println(calibrationCurveValue);
 }
 
 //Print out the battery percentage unto the second screen. 
