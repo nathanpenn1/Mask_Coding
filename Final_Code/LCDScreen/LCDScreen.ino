@@ -56,12 +56,10 @@ void loop() {
 
   ////////////////// UV SENSORY STATUS //////////////////////////////
   /* grabs the uv sensory value and calculates it and sends it to the app and LCD Screen*/
-  int uvAnalogValue = analogRead(A0);
-  //intensityStatus();
-  //uvSensorStatus(uvAnalogValue);
+  intensityStatus();
   
 
-  
+
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
 

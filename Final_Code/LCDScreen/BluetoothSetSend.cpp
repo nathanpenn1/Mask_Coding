@@ -1,4 +1,5 @@
 #include "ArduinoBLE.h"
+#include "UVSensorSetSend.h"
 #include "ScreenDraw.h"
 
 BLEService uvMaskService("180C"); //User define service
@@ -42,22 +43,6 @@ void bluetoothStatus(){
   BLEDevice central = BLE.central();  // Wait for a BLE central to connect
 
 }
-
-// void intesityStatus(int dataPoint){
-//   // read the current percentage value
-//   int percentage = analogRead(A0);
-
-//   // has the value changed since the last read
-//   boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
-
-//   //if(intestyChanged){
-//     intesityCharacteristic.writeValue(percentage);
-//     //Serial.print("intesity changed to : ");////
-//     //Serial.print(dataPoint);////
-//     //Serial.println("");////
-//   //}
-
-// }
 
 void percentageStatus(int percentage){
 
@@ -111,14 +96,14 @@ void intensityStatus(){
   // read the current percentage value
   //int percentage = analogRead(A0);
   double mV = convertFromADC();
-  calculateUVIndex(mV);
+  double indexUV = calculateUVIndex(mV);
 
-  // Maybe remove this? The intensity value will likely stay the same, but just wanted to give out a thought. 
-  // has the value changed since the last read
-  //boolean intestyChanged = (intesityCharacteristic.value() != mV); // is the percentage in the loop
+  double averageV = AverageFilter(mV);
 
-  intesityCharacteristic.writeValue(mV);
+  //////////////////////// Calibration Curve Equation //////////////////////////
 
+
+  intesityCharacteristic.writeValue(averageV);
 }
 
 void printVal (char string[] , float data){
