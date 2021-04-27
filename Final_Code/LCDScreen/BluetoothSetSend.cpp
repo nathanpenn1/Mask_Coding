@@ -89,6 +89,7 @@ double calculateUVIndex(double i){
   double mV = convertFromADC();
   double uv_index = (mV / 1024) / 0.1;
   //Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.println("   ");  // Print to serial monitor for testing. 
+  return uv_index;
 }
 
 

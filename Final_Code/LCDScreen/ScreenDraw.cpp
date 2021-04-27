@@ -325,10 +325,13 @@ void rePrintFirstScreen()
   // Title (UV Mask)
   drawingF(5, 15, 80, 149, 201, 3);
   tft.println("UV MASK");
-  
+
+  // Removing and placing in the second screen
+  /*
   // drawing label "Percentage"
   drawingF(140, 15, 100, 100, 100, 2);
   tft.println("Percentage: ");
+  */
   
   // drawing label "UV Intesity Graph"
   drawingF(60, 50, 100, 100, 100, 2);
@@ -395,6 +398,10 @@ void printSecondScreen()
   // cc = calibration curve 
   drawingF(5, 95, 100, 100, 100, 2);
   tft.println("CC Value: ");
+
+  // drawing label "UV Index" 
+  drawingF(5, 110, 100, 100, 100, 2);
+  tft.println("UV Index: ");
   
 }
 
@@ -405,6 +412,7 @@ void printSecondScreen()
     1: raw analog
     2: converted adc value
     3: calibration curve 
+    4: UV index based of ma2shita's library.
 
 */
 void printUV_SECONDSCREEN(){
@@ -440,6 +448,20 @@ void printUV_SECONDSCREEN(){
     // Apply calibration curve and print out into the screen  (3)
     double calibrationCurveValue = (3.03*sensor_mV) + 335;
     tft.println(calibrationCurveValue);
+
+    // Draw rectangle to reset the value of uv index     (4)
+    tft.fillRoundRect(137,110, 70, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(137,110); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+
+    // Print out uv index into the screen  (4)
+    double x = 0.0;
+    double uvIndex = calculateUVIndex(x);
+    tft.println(uvIndex);
+
+
+     
 }
 
 //Print out the battery percentage unto the second screen. 
