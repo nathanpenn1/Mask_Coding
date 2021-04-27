@@ -40,37 +40,30 @@ void setup() {
 }
 
 void loop() {
+  ///////////////////   BLUETOOTH STATUS  ///////////////////////////
+  /* listening for BLE peripherals to connect */
+  bluetoothStatus();
 
-  // Read and save desired information into variables
-  int batteryPinVoltage = analogRead(A6); 
-  int uvAnalogValue = analogRead(A0);
+  /////////////////// BATTERY PERCENTAGE  ///////////////////////////
+  /* grabs the battery voltage and send data via Bluetooth to the app and LCD Screen.*/
+  int batteryPinVoltage = analogRead(A6);
+  batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
+  percentageStatus(batteryPercentage);
 
+  ////////////////// APP BUTTON ON / OFF ///////////////////////////
+  /* a value is written to characteristic from the app and turns ON or OFF the D3 pin */
   buttonOnOff();
-/*
-  if(buttonOnOffChar.written()){
-    if(buttonOnOffChar.value() == 1){
-      digitalWrite(D5, HIGH);
-    } else {
-      digitalWrite(D5, LOW);
-    }
-  }
-*/
+
+  ////////////////// UV SENSORY STATUS //////////////////////////////
+  /* grabs the uv sensory value and calculates it and sends it to the app and LCD Screen*/
+  int uvAnalogValue = analogRead(A0);
+  //intensityStatus();
+  //uvSensorStatus(uvAnalogValue);
+  
+
   
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
-
-
-  // Calculate battery percentage and UV intensity, and send data via Bluetooth to the app.
-  batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
-  //intensityStatus();
-  //uvSensorStatus(uvAnalogValue);
-
-  bluetoothStatus();
-  ////////////////////////////////////////percentageStatus(inc);
-  percentageStatus(batteryPercentage); // for when we have a battery percentage to report
-
-  ///////////////////////////////////////intesityStatus(dataPoint);
-  //uvSensorStatus(uvAnalogValue);
 
   checkButton();
 

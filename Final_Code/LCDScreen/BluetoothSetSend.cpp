@@ -59,15 +59,15 @@ void bluetoothStatus(){
 
 // }
 
-void percentageStatus(int inc){
+void percentageStatus(int percentage){
 
   int checking = checkScreenSelect();
 
   // has the value changed since the last read
-  boolean percentageChanged = (percentageCharacteristic.value() != inc); // is the percentage in the loop
+  boolean percentageChanged = (percentageCharacteristic.value() != percentage); // is the percentage in the loop
 
   //if(percentageChanged){
-    percentageCharacteristic.writeValue(inc);
+    percentageCharacteristic.writeValue(percentage);
     if (checking == 1)
     {
       //percentageOutput(inc); // Removing from first screen and placing into the second screen.
@@ -75,7 +75,7 @@ void percentageStatus(int inc){
 
     else if (checking == 2)
     {
-      printPercentage_SECONDSCREEN(inc);
+      printPercentage_SECONDSCREEN(percentage);
     }
 
     else
