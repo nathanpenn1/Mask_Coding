@@ -40,31 +40,30 @@ void setup() {
 }
 
 void loop() {
+  ///////////////////   BLUETOOTH STATUS  ///////////////////////////
+  /* listening for BLE peripherals to connect */
+  bluetoothStatus();
 
-  // Read and save desired information into variables
-  int batteryPinVoltage = analogRead(A6); 
-  int uvAnalogValue = analogRead(A0);
-
-
-
-  
-  // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
-  updateButton(); 
-
-
-  // Calculate battery percentage and UV intensity, and send data via Bluetooth to the app.
+  /////////////////// BATTERY PERCENTAGE  ///////////////////////////
+  /* grabs the battery voltage and send data via Bluetooth to the app and LCD Screen.*/
+  int batteryPinVoltage = analogRead(A6);
   batteryPercentage = calculateBatteryPercentage(batteryPinVoltage);
+  percentageStatus(batteryPercentage);
+
+  ////////////////// APP BUTTON ON / OFF ///////////////////////////
+  /* a value is written to characteristic from the app and turns ON or OFF the D3 pin */
+  buttonOnOff();
+
+  ////////////////// UV SENSORY STATUS //////////////////////////////
+  /* grabs the uv sensory value and calculates it and sends it to the app and LCD Screen*/
   intensityStatus();
+  
   uvSensorStatus(uvAnalogValue);
   
   buttonOnOff();
 
-  bluetoothStatus();
-  ////////////////////////////////////////percentageStatus(inc);
-  percentageStatus(batteryPercentage); // for when we have a battery percentage to report
-
-  ///////////////////////////////////////intesityStatus(dataPoint);
-  uvSensorStatus(uvAnalogValue);
+  // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
+  updateButton(); 
 
   checkButton();
 
@@ -77,7 +76,8 @@ void loop() {
   // Decide which screenDraw functions to use based on which screen the user is on.
   screenSelect = checkScreenSelect();
   if (screenSelect == 1){
-    printUV();
+    //printUV(); // Removing from first screen and putting into the second screen. 
+    serialPrintUV();
     graphUV();
   }
   else if (screenSelect == 2){

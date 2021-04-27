@@ -1,4 +1,5 @@
 #include "ArduinoBLE.h"
+#include "UVSensorSetSend.h"
 #include "ScreenDraw.h"
 
 BLEService uvMaskService("180C"); //User define service
@@ -30,7 +31,7 @@ void bluetoothSetup(){
   BLE.addService(uvMaskService); // Add service
   
   percentageCharacteristic.writeValue(0);
-  intesityCharacteristic.writeValue(0);
+  intesityCharacteristic.writeValue(500);
   timeChracteristic.writeValue(0);
   buttonOnOffChar.writeValue(0);
   
@@ -43,39 +44,23 @@ void bluetoothStatus(){
 
 }
 
-// void intesityStatus(int dataPoint){
-//   // read the current percentage value
-//   int percentage = analogRead(A0);
-
-//   // has the value changed since the last read
-//   boolean intestyChanged = (intesityCharacteristic.value() != percentage); // is the percentage in the loop
-
-//   //if(intestyChanged){
-//     intesityCharacteristic.writeValue(percentage);
-//     //Serial.print("intesity changed to : ");////
-//     //Serial.print(dataPoint);////
-//     //Serial.println("");////
-//   //}
-
-// }
-
-void percentageStatus(int inc){
+void percentageStatus(int percentage){
 
   int checking = checkScreenSelect();
 
   // has the value changed since the last read
-  boolean percentageChanged = (percentageCharacteristic.value() != inc); // is the percentage in the loop
+  boolean percentageChanged = (percentageCharacteristic.value() != percentage); // is the percentage in the loop
 
   //if(percentageChanged){
-    percentageCharacteristic.writeValue(inc);
+    percentageCharacteristic.writeValue(percentage);
     if (checking == 1)
     {
-      percentageOutput(inc);
+      //percentageOutput(inc); // Removing from first screen and placing into the second screen.
     }
 
     else if (checking == 2)
     {
-      printPercentage_SECONDSCREEN(inc);
+      printPercentage_SECONDSCREEN(percentage);
     }
 
     else
@@ -103,7 +88,7 @@ double convertFromADC (){
 double calculateUVIndex(double i){
   double mV = convertFromADC();
   double uv_index = (mV / 1024) / 0.1;
-  Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.print("   ");  // Print to serial monitor for testing. 
+  //Serial.print("guvaUV_index: ");Serial.print(uv_index);Serial.println("   ");  // Print to serial monitor for testing. 
 }
 
 
@@ -111,14 +96,14 @@ void intensityStatus(){
   // read the current percentage value
   //int percentage = analogRead(A0);
   double mV = convertFromADC();
-  calculateUVIndex(mV);
+  double indexUV = calculateUVIndex(mV);
 
-  // Maybe remove this? The intensity value will likely stay the same, but just wanted to give out a thought. 
-  // has the value changed since the last read
-  //boolean intestyChanged = (intesityCharacteristic.value() != mV); // is the percentage in the loop
+  double averageV = AverageFilter(mV);
 
-  intesityCharacteristic.writeValue(mV);
+  //////////////////////// Calibration Curve Equation //////////////////////////
 
+
+  intesityCharacteristic.writeValue(averageV);
 }
 
 void printVal (char string[] , float data){
@@ -136,10 +121,3 @@ void buttonOnOff(){
     }
   }
 }
-
-
-
-
-
-
-
