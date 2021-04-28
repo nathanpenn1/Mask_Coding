@@ -31,6 +31,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     @Published var xVal = 0
     @Published var buttonOnOff = 0
     @Published var strOut = " "
+    @Published var rawVoltage = 0.0
     var inc = 0
     
     override init(){
@@ -96,6 +97,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
           case percentageCBUUID:
             print(characteristic.value![0])
             percentageVal = Int(characteristic.value![0])
+            rawVoltage = (Double(percentageVal) / 100.0) * 2.875 * 4
             //print(percent)
           case xvalueCBUUID:
             print(characteristic.value![0])

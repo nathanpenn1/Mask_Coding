@@ -65,7 +65,7 @@ struct BatteryView: View {
                                 .bold()
                                 .offset(y: -30)
                             
-                            Text("12V")
+                            Text("11.5V")
                                 .font(Font.custom("Helvetica-Neue", size: 35))
                                 .foregroundColor(Color("BoxText"))
                                 .bold()
@@ -85,7 +85,7 @@ struct BatteryView: View {
                                 .bold()
                                 .offset(y: -30)
                             
-                            Text("9V")
+                            Text(bleManager.rawVoltage.description + "V")
                                 .font(Font.custom("Helvetica-Neue", size: 35))
                                 .bold()
                                 .offset(y: 15)
