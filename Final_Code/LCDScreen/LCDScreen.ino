@@ -73,8 +73,8 @@ void loop() {
   // Decide which screenDraw functions to use based on which screen the user is on.
   screenSelect = checkScreenSelect();
   if (screenSelect == 1){
-    //printUV(); // Removing from first screen and putting into the second screen. 
-    serialPrintUV();
+    printUV(); // Removing from first screen and putting into the second screen. 
+    serialPrintUV(); // Printing uv intensity to the serial monitor for testing. 
     graphUV();
   }
   else if (screenSelect == 2){

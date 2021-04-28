@@ -1,7 +1,8 @@
 #include "Battery.h"
 
 //#define MAX_VOLTAGE 3   // Considering voltage divider factor of 4, we have 12/4 = 3 V
-#define MAX_VOLTAGE 2.875 // Our max voltage is 11.5, because a diode takes away 0.5 V. So 11.5/4 = 2.875 V
+#define MAX_VOLTAGE 2.875 // Our max voltage is 11.5, because a diode takes away 0.5 V. So 11.5/4 = 2.875 V. 
+//Divide by 4 because Brandon has a voltage divider in order for the pin to safely receive the battery voltage without frying the pin. 
 
 int calculateBatteryPercentage(int batteryPin)
 {
