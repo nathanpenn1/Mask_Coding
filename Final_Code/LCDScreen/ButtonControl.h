@@ -14,4 +14,6 @@ void updateButton();
 
 void checkButton();
 
+int ledStatus();
+
 #endif

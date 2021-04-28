@@ -2,6 +2,7 @@
 #include "Adafruit_ILI9341.h"   // 
 #include "ScreenDraw.h"         //
 #include "BluetoothSetSend.h"   //
+#include "ButtonControl.h"
 
 // Arduino Pinouts
 #define TFT_MISO D12
@@ -171,24 +172,37 @@ void percentageOutput(int i){
     tft.print("%");
 }
 
-// Prints the UV Analog value unto the first screen
+// Prints the UV Analog value unto the first screenalong with the cc value (calibration curve value)
 void printUV(){
-
-    // Printing the string "UV Analog Value"
+  
+    // UV Analog
     drawingF(140, 30, 100, 100, 100, 2);
     tft.println("UV Analog: ");
 
     
-    //Printing out the sensor on the screen for testing. 
+    //Printing out the uv analog value on the screen
     tft.fillRoundRect(270,30, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
     tft.setCursor(270,30); // set the cursor
     tft.setTextColor(tft.color565(255, 0, 0));
     tft.setTextSize(2);
+    tft.print(sensorValue);
 
-    // Print out the current sensor value into the screen. 
-    sensorValue = analogRead(A0);
-    tft.print(sensorValue);     //Uncomment this to see raw analog value
-    Serial.print("RAWANALOG:");Serial.println(sensorValue);  //Uncomment this to see microWatt/cm^2 value
+  // CC Value
+    drawingF(140, 15, 100, 100, 100, 2);
+    tft.println("CC Value: ");
+
+
+    tft.fillRoundRect(270,15, 50, 15, 0, tft.color565(0, 0, 0)); // Draw a black rectangle to reset value shown. 
+    tft.setCursor(270,15); // set the cursor
+    tft.setTextColor(tft.color565(255, 0, 0));
+    tft.setTextSize(2);
+
+    // Print out the cc value (calibration curve value) to the screen. 
+    int ccValue =  (3.03*sensorValue) + 335;
+    tft.print(ccValue);     // print to lcd screen. 
+    
+
+    
 
 /*
     // Calculate the UV intensity (microWatt/cm^2) value using the calibration curve.
@@ -250,50 +264,60 @@ void graphUV(){
   
 
   sensorValue = analogRead(A0);
-  if (sensorValue >= 620){
+  int calibrationValue = (3.03*sensorValue) + 335;
+
+  // If LED's are off, graph 0
+  if ( ledStatus() == 0 ){
+    tft.drawCircle(coordinatesX[point],215, 1, tft.color565(255, 255, 255)); // Draw circle
+    coordinatesY[point] = 215;
+    sensorValue = 0; // Set to zero because the led's are off. 
+  }
+
+  // If LED's are on, graph the calibration curve value. 
+  else if (calibrationValue >= 620){
     tft.drawCircle(coordinatesX[point],70, 1, tft.color565(255, 255, 255)); // Draw circle
     coordinatesY[point] = 70;
     
     
   }
 
-  else if (sensorValue >= 520){
+  else if (calibrationValue >= 520){
     tft.drawCircle(coordinatesX[point],90, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 90;
    
   }
 
-  else if (sensorValue >= 420){
+  else if (calibrationValue >= 420){
     tft.drawCircle(coordinatesX[point],115, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 115;
    
   }
 
-  else if (sensorValue >= 320){
+  else if (calibrationValue >= 300){
     tft.drawCircle(coordinatesX[point],135, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 135;  
    
   }
 
-  else if (sensorValue >= 220){
+  else if (calibrationValue >= 200){
     tft.drawCircle(coordinatesX[point],160, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 160;  
     
   }
 
-  else if (sensorValue >= 120){
+  else if (calibrationValue >= 100){
     tft.drawCircle(coordinatesX[point],185, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 185;
     
   }
 
-  else if (sensorValue >= 20){
+  else if (calibrationValue >= 20){
     tft.drawCircle(coordinatesX[point],210, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 210;
     
   }
 
-  else if (sensorValue >= 0){
+  else if (calibrationValue >= 0){
     tft.drawCircle(coordinatesX[point],215, 1, tft.color565(255, 255, 255));
     coordinatesY[point] = 215;
    

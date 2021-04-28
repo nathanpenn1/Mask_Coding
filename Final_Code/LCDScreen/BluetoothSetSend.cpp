@@ -1,6 +1,7 @@
 #include "ArduinoBLE.h"
 #include "UVSensorSetSend.h"
 #include "ScreenDraw.h"
+#include "ButtonControl.h"
 
 BLEService uvMaskService("180C"); //User define service
 
@@ -106,6 +107,11 @@ void intensityStatus(){
   double calibrationCurveValue = (3.03*averageV) + 335;
   double sendToApp = (3.03*mV) + 335;
 
+
+  if ( ledStatus() == 0)
+  {
+    sendToApp = 0.0;
+  }
   // Sending raw analog voltage after sending it through the calibration curve.
   intesityCharacteristic.writeValue(sendToApp);
 }

@@ -73,6 +73,19 @@ void updateButton()
   oneButton.update(); // uncomment this if you're using the button WITH interrupts
 }
 
+int ledStatus()
+{
+  if (digitalRead(ledPIN) == HIGH)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
 
 // If the button is pressed once, switch the screens
 // If the button is long pressed for approximately 2 seconds, turn off the system. 
