@@ -23,6 +23,8 @@ EasyButton oneButton(oneButtonPIN, debounce, pullup,  invert); //Uncomment this 
 // int lastTime = millis();
 // int counter = 0;
 
+
+// Setups everything related to the single button, as well as other pins. 
 void buttonSetup()
 {
   // Setting up turnOffSystemPin to turn on. With Brandon's circuit it should latch
@@ -45,6 +47,7 @@ void buttonSetup()
   
 }
 
+// Interrupt function used to for fast response when pressing the button.
 void oneButtonISR()
 {
   oneButton.read();// Updating button status
@@ -56,6 +59,7 @@ void fourSecFunc()                 // This is called fourSecFunc, because everyt
   buttonLongPressed = 1;
 }
 
+// If the button is tapped/pressed one time, sets this flag to 1. 
 void oneTap()
 {
   buttonPressed = 1;
@@ -67,12 +71,14 @@ void oneTap()
   //Serial.println(counter);       // For testing purposes
 }
 
+// Function from the EasyButton library used to read if button is held or tapped. 
 void updateButton()
 {
   //oneButton.read(); // uncomment this if you're using the button WITHOUT interrupts. Only works with oneButton.onPressed(oneTap), 
   oneButton.update(); // uncomment this if you're using the button WITH interrupts
 }
 
+// Checks the status of the ledPin, and sends the data to other functions whether its on or off. 
 int ledStatus()
 {
   if (digitalRead(ledPIN) == HIGH)

@@ -50,6 +50,7 @@ unsigned int point = 0;
 unsigned long lastFrameTime = millis();
 int timer = 20; // 20 ms per frame
 
+// Setups everything related to the screen, including all the initialization pins and others. 
 void screenSetup(){
   // Turn on backlight
   pinMode(TFT_LED, OUTPUT);
@@ -101,6 +102,7 @@ void screenSetup(){
   tft.println("mW/cm2");
 }
 
+// Function used to help lessen writing three tft functions into one function.
 void drawingF(int Cx, int Cy, int R, int G, int B, int textSize)
 {
   tft.setCursor(Cx,Cy); // set the cursor
@@ -135,7 +137,7 @@ void setUpGraphCoords(bool q)
   
 }
 
-// Prints a warning label.
+// Prints a warning label. Unused during the final implementation of our project. 
 void printWarning()
 {
   tft.setRotation(3);
@@ -172,7 +174,7 @@ void percentageOutput(int i){
     tft.print("%");
 }
 
-// Prints the UV Analog value unto the first screenalong with the cc value (calibration curve value)
+// Prints the UV Analog value unto the first screen along with the cc value (calibration curve value)
 void printUV(){
   
     // UV Analog
@@ -203,7 +205,7 @@ void printUV(){
     
 
     
-
+    // Uncomment this if you want to see other outputs
 /*
     // Calculate the UV intensity (microWatt/cm^2) value using the calibration curve.
     // Calibration Curve, First Iteration: 5.69x - 2.75. 
@@ -506,6 +508,7 @@ int checkScreenSelect()
 }
 
 // This function is used to check how many milliseconds it takes for each frame.
+// After determining average frame rate, this function is omitted to free up processing power to the Arduino. 
 /*
 3/22/21 Average framerate was around 360 milliseconds, resulting in a frame rate/ refresh rate of 
 This includes everything, including the calculation for all the sensors, graphing and bluetooth. 

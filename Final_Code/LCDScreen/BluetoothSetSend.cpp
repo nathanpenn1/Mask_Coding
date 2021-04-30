@@ -14,6 +14,7 @@ BLEIntCharacteristic timeChracteristic("2A59", BLERead | BLENotify);
 // creat buttonOnOff chracteristic and allow remote device to get notifications
 BLEIntCharacteristic buttonOnOffChar("111E", BLERead | BLENotify | BLEWrite);
 
+// Setup everything related to bluetooth and data sending/receiving. 
 void bluetoothSetup(){
   Serial.begin(9600); // initialize serial communication
   
@@ -40,11 +41,13 @@ void bluetoothSetup(){
 
 }
 
+// Checks Bluetooth, and whether its connected to the Arduino or not. 
 void bluetoothStatus(){
   BLEDevice central = BLE.central();  // Wait for a BLE central to connect
 
 }
 
+// Checks the status of the battery percentage, and outputs it to selected screen and the app. 
 void percentageStatus(int percentage){
 
   int checking = checkScreenSelect();
@@ -52,8 +55,13 @@ void percentageStatus(int percentage){
   // has the value changed since the last read
   boolean percentageChanged = (percentageCharacteristic.value() != percentage); // is the percentage in the loop
 
-  //if(percentageChanged){
-    percentageCharacteristic.writeValue(percentage);
+  
+    percentageCharacteristic.writeValue(percentage); // Send data to the app
+
+    // Check which screen you've selected. 
+    // If screen = 1, you're on the first screen, print out these statements
+    // If screen = 2, you're on the second screen, execute these statements
+    
     if (checking == 1)
     {
       //percentageOutput(inc); // Removing from first screen and placing into the second screen.
@@ -61,7 +69,7 @@ void percentageStatus(int percentage){
 
     else if (checking == 2)
     {
-      printPercentage_SECONDSCREEN(percentage);
+      printPercentage_SECONDSCREEN(percentage); // Printing the battery percentage into the second screen. 
     }
 
     else
@@ -85,7 +93,7 @@ double convertFromADC (){
   return (double)(sum / 1000 * 100); // returns mV value
 }
 
-// Based of ma2shita's Arduino library for GUVA-S12SD
+// Based of ma2shita's Arduino library for GUVA-S12SD, to calculate UV Index. 
 double calculateUVIndex(double i){
   double mV = convertFromADC();
   double uv_index = (mV / 1024) / 0.1;
@@ -93,7 +101,7 @@ double calculateUVIndex(double i){
   return uv_index;
 }
 
-
+// Checks the UV intensity from the UV sensor, and applies our calibration curve. 
 void intensityStatus(){
   // read the current percentage value
   //int percentage = analogRead(A0);
@@ -121,7 +129,9 @@ void printVal (char string[] , float data){
   Serial.print(data);
 }
 
-
+// Function that checks the buttonOnOff characteristic. 
+// - If the app sets it to 0, turn OFF the UV LED's
+// - If the app sets it to 1, turn ON  the UV LED's
 void buttonOnOff(){
   if(buttonOnOffChar.written()){
     if(buttonOnOffChar.value() == 1){
