@@ -4,8 +4,7 @@
  For the screen, please refer to the top of ScreenDraw.cpp
 
  UVSensor output is connected to A0
- The pin to turn off the system is connected to D4
- The button is connected to D2
+ Pins related to single button functionality and LED's are located in ButtonControl.cpp
 
  Currently, A1 is set as an input, but I dont think we are currently using this. Refer to UVSensorSetSend. 
 
@@ -73,13 +72,13 @@ void loop() {
   // Decide which screenDraw functions to use based on which screen the user is on.
   screenSelect = checkScreenSelect();
   if (screenSelect == 1){
-    printUV(); // Removing from first screen and putting into the second screen. 
+    printUV(); 
     serialPrintUV(); // Printing uv intensity to the serial monitor for testing. 
     graphUV();
   }
   else if (screenSelect == 2){
     printUV_SECONDSCREEN();
-    //printPercentage_SECONDSCREEN(i);
+    //printPercentage_SECONDSCREEN(i); 
   }
 
   // Testing purposes without access to UV sensor

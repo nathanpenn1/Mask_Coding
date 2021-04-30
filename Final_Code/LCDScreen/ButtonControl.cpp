@@ -3,9 +3,9 @@
 #include <EasyButton.h>
 
 // Arduino Pinouts
-#define oneButtonPIN D5 // Old one was D2
-#define ledPIN D3
-#define turnOffSystemPin D4
+#define oneButtonPIN D5      // Pin that will be attached to the single button
+#define ledPIN D3            // Pin controlling UV LED's
+#define turnOffSystemPin D4  // System that keeps the system on when set to high. 
 
 // Variables that will be used to determine which event to do
 bool buttonPressed = 0;
