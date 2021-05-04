@@ -61,7 +61,6 @@ void loop() {
   // Updates the button's status. Can be configured with and without interrupts inside ButtonControl.cpp
   updateButton(); 
 
-  checkButton();
 
 
   // Checking if button is pressed. 
